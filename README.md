@@ -43,6 +43,40 @@ are tagged by keyword rules, so the pipeline always runs.
 **Topics:** ML fundamentals · deep learning · LLMs & transformers · RAG & agents · MLOps & production ·
 ML/AI system design · stats & math · coding & implementation.
 
+## How the 15 questions are picked
+
+The logic is in `select()` in [`iqg/issue.py`](iqg/issue.py).
+
+**Eligible:** never sent before (duplicates already merged), and an AI quality rating of at least 3 out of 5.
+
+**Pass 1: up to 5 "asked this week" questions**
+- *Fresh* means found in a post from the last 7 days, **or** an older bank question that someone asked again
+  this week (it's then shown as trending).
+- Ranked by `score = quality + 0.5 × (times seen in different posts − 1)`, with that bonus capped at +2.
+- At most 2 per topic, so one hot topic can't take over.
+
+**Pass 2: fill up to 15 from the bank**
+- **Topic rotation:** topics that appeared least in the last 4 issues go first; each topic gets at most 3
+  per issue, so an issue covers most of the 8 areas.
+- **Difficulty mix:** cycles easy → medium → medium → hard (roughly 4 easy / 7 medium / 4 hard).
+- **Variety:** a random pick among questions within 0.5 of the best score for that topic and difficulty,
+  seeded by the issue number so a re-run gives the same issue.
+- If every topic reaches its cap, the cap is relaxed and the highest-scoring questions left are taken.
+
+**Then**
+- **Deep dive:** a medium or hard question, preferring one asked this week, then the highest score.
+- **Order:** grouped by topic, then easy to hard.
+- **No repeats:** each question is marked as sent and never picked again.
+
+**Supply:** about 1,600 unsent questions, roughly 100 issues (a year at two a week) even with no new posts.
+Daily collection adds about 5–15 new questions a day.
+
+**Limit:** everyone gets the same 15 questions. Picks are based on the AI's quality ratings, not on what
+each reader already knows, and practice-mode ticks stay in the reader's browser.
+
+**Settings:** `QUESTIONS_PER_ISSUE` (15), `FRESH_PER_ISSUE` (5) and `FRESH_DAYS` (7) are in
+`iqg/config.py`. The topic cap (3), quality cut-off (3) and difficulty cycle are in `iqg/issue.py`.
+
 ## Free services used
 
 | Job | Service | Free limit |
@@ -121,7 +155,7 @@ Until then, mark the first issue as **Not spam** in your mail app.
 
 ## Tuning
 
-Everything is in `iqg/config.py`: newsletter name and tagline, questions per issue (`15`) and fresh ones (`5`),
+Most settings are in `iqg/config.py` (selection limits are in `iqg/issue.py`): newsletter name and tagline, questions per issue (`15`) and fresh ones (`5`),
 topics and keyword rules, search queries and how many run per day, seed repos, LLM model names and call budget,
 duplicate threshold (`0.91`), and the Gmail daily cap.
 
