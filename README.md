@@ -44,6 +44,12 @@ python -m iqg site               # rebuild the website
 | Verified sender email | Brevo → Senders | variable `SENDER_EMAIL` |
 | Subscribe form action URL | Brevo → Contacts → Forms → (double opt-in form) → Share → embed code `action="…"` | variable `SUBSCRIBE_FORM_ACTION` |
 | Site URL | after enabling Pages | variable `SITE_URL` |
+| Gmail App Password (sends issues from your Gmail, so they land in the inbox) | myaccount.google.com/apppasswords (needs 2-Step Verification) | secret `GMAIL_APP_PASSWORD` |
+
+With `GMAIL_APP_PASSWORD` set, issues are emailed one-by-one from `SENDER_EMAIL` via Gmail (≈450/day cap);
+subscribers are still read from the Brevo list. Unsubscribes arrive as "unsubscribe" emails (Gmail's built-in
+button or the footer link) and are read over IMAP before each send; only hashed addresses are stored.
+Without it, issues go out as Brevo campaigns. Run the **Send me a test email** workflow to check delivery.
 
 Set secrets with `gh secret set NAME` (it prompts for the value) and variables with `gh variable set NAME`.
 GitHub Pages: Settings → Pages → Deploy from branch → `main` / `docs`.

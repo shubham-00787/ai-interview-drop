@@ -82,3 +82,6 @@ SENDER_EMAIL = (os.getenv("SENDER_EMAIL") or "")
 # Attach the PDF to the email as well as linking it. Off by default: attachments in bulk email
 # make spam filtering more likely, especially without an authenticated sending domain.
 ATTACH_PDF = (os.getenv("ATTACH_PDF") or "").lower() in ("1", "true", "yes")
+# When GMAIL_APP_PASSWORD is set, issues are sent from SENDER_EMAIL through Gmail (better inbox placement)
+# instead of as a Brevo campaign. Gmail allows ~500 recipients/day on a personal account.
+GMAIL_DAILY_LIMIT = int(os.getenv("GMAIL_DAILY_LIMIT") or "450")

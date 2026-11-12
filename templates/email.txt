@@ -1,0 +1,27 @@
+{{ name }} · Issue #{{ issue.number }} · {{ issue.date|nicedate }}
+
+{{ issue|title_of }}
+
+Here are this issue's {{ issue.questions|length }} questions. Try answering each one out loud.
+The PDF has a hint for every question, a worked answer to the deep dive, and boxes to tick.
+
+Download the PDF: {{ pdf_url }}
+Practise online:  {{ site_url }}/issues/{{ issue.number }}.html
+{% if issue.deep_dive %}
+
+TODAY'S DEEP DIVE
+{{ issue.deep_dive.text }}
+(Have a go first. The model answer is in the PDF.)
+{% endif %}
+{% set ns = namespace(n=0) %}
+{% for t, qs in issue.questions|bytopic %}
+
+{{ topics[t]|upper }}
+{% for q in qs %}{% set ns.n = ns.n + 1 %}
+{{ ns.n }}. {{ q.text }}{% if q.fresh %} (new){% endif %}
+{% endfor %}
+{% endfor %}
+
+--
+You're getting this because you subscribed at {{ site_url.split('//')[-1] }}.
+New issues every Monday & Thursday. To unsubscribe, reply with the subject "unsubscribe" or use Gmail's Unsubscribe button.

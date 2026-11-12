@@ -134,6 +134,24 @@ def send_latest():
     if issue.get("campaign_id"):
         print(f"send: issue #{issue['number']} was already emailed (campaign {issue['campaign_id']})")
         return
-    attach = render.pdf_url(issue) if config.ATTACH_PDF else None
-    issue["campaign_id"] = send.send_campaign(issue["subject"], render.email_html(issue), attachment_url=attach)
+    from . import gmail
+    if gmail.configured():
+        html = render.email_html(issue, unsubscribe_url=gmail.unsubscribe_mailto())
+        n = gmail.send_issue(issue["subject"], html, render.email_text(issue))
+        issue["campaign_id"] = f"gmail:{n}" if n else None
+    else:
+        attach = render.pdf_url(issue) if config.ATTACH_PDF else None
+        issue["campaign_id"] = send.send_campaign(issue["subject"], render.email_html(issue), attachment_url=attach)
     bank.save()
+
+
+def send_test():
+    """Send the latest issue to yourself only. Nothing is recorded."""
+    from . import gmail
+    bank = Bank()
+    issue = bank.issues[-1]
+    if gmail.configured():
+        html = render.email_html(issue, unsubscribe_url=gmail.unsubscribe_mailto())
+        gmail.send_issue(f"[Test] {issue['subject']}", html, render.email_text(issue), recipients=[config.SENDER_EMAIL])
+    else:
+        print("send-test: GMAIL_APP_PASSWORD is not set")

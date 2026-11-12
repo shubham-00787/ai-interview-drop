@@ -54,7 +54,7 @@
 
   <tr><td style="padding:20px 8px 0;font-size:12.5px;line-height:1.6;color:#8a8378;text-align:center;">
     You're getting this because you subscribed at {{ site_url.split('//')[-1] }}. New issues every Monday &amp; Thursday.<br>
-    {% if preview %}<a href="#" style="color:#8a8378;">Unsubscribe</a>{% else %}<a href="{{ '{{' }} unsubscribe {{ '}}' }}" style="color:#8a8378;">Unsubscribe</a>{% endif %}
+    <a href="{{ unsubscribe_url }}" style="color:#8a8378;">Unsubscribe</a>
   </td></tr>
 </table>
 </td></tr>

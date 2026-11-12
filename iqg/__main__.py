@@ -13,6 +13,7 @@ def main():
     pub.add_argument("--dry-run", action="store_true", help="build + render a preview, but don't send or record")
     pub.add_argument("--no-send", action="store_true", help="publish to the site + PDF only; email later with send-latest")
     sub.add_parser("send-latest", help="email the newest issue if it hasn't been emailed yet")
+    sub.add_parser("send-test", help="email the latest issue to SENDER_EMAIL only (via Gmail if configured)")
     sub.add_parser("site", help="re-render the website from past issues")
     a = p.parse_args()
     if a.cmd == "collect":
@@ -25,6 +26,9 @@ def main():
     elif a.cmd == "send-latest":
         from . import issue
         issue.send_latest()
+    elif a.cmd == "send-test":
+        from . import issue
+        issue.send_test()
     elif a.cmd == "site":
         from . import render
         render.build_site()

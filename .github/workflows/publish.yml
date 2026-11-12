@@ -26,6 +26,7 @@ jobs:
       SUBSCRIBE_FORM_ACTION: ${{ vars.SUBSCRIBE_FORM_ACTION }}
       SITE_URL: ${{ vars.SITE_URL }}
       ATTACH_PDF: ${{ vars.ATTACH_PDF }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

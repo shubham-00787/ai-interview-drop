@@ -44,8 +44,16 @@ def _ctx(**kw):
                 form_action=config.SUBSCRIBE_FORM_ACTION, topics=config.TOPICS, stats=_STATS, **kw)
 
 
-def email_html(issue, preview=False):
-    return env.get_template("email.html").render(**_ctx(issue=issue, preview=preview, pdf_url=pdf_url(issue)))
+def email_html(issue, preview=False, unsubscribe_url=None):
+    """unsubscribe_url: None = Brevo's own unsubscribe tag (Brevo campaigns); a mailto for Gmail sending."""
+    if unsubscribe_url is None:
+        unsubscribe_url = "#" if preview else "{{ unsubscribe }}"
+    return env.get_template("email.html").render(**_ctx(issue=issue, pdf_url=pdf_url(issue),
+                                                        unsubscribe_url=unsubscribe_url))
+
+
+def email_text(issue):
+    return env.get_template("email.txt").render(**_ctx(issue=issue, pdf_url=pdf_url(issue)))
 
 
 def pdf_path(issue, out_dir=None):
