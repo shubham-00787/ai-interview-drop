@@ -12,7 +12,7 @@ NEWSLETTER_NAME = (os.getenv("NEWSLETTER_NAME") or "The AI/ML Interview Drop")
 TAGLINE = "15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now."
 SITE_URL = (os.getenv("SITE_URL") or "https://shubham-00787.github.io/ai-interview-drop")
 # Brevo hosted-form endpoint for the Subscribe box (Brevo > Contacts > Forms > Share > embed "action" URL)
-SUBSCRIBE_FORM_ACTION = (os.getenv("SUBSCRIBE_FORM_ACTION") or "")
+SUBSCRIBE_FORM_ACTION = (os.getenv("SUBSCRIBE_FORM_ACTION") or "https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==")
 QUESTIONS_PER_ISSUE = 15
 FRESH_PER_ISSUE = 5          # questions found in the last FRESH_DAYS
 FRESH_DAYS = 7
