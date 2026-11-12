@@ -83,6 +83,10 @@ def publish(dry_run=False):
     candidates = [q for q in qs if q["difficulty"] in ("medium", "hard")] or qs
     deep = max(candidates, key=lambda q: (q["origin"] == "fresh", _score(q)))
     hints, deep_answer, title = llm.write_hints(qs, deep["id"]) if llm.available() else ({}, None, None)
+    missing = [q for q in qs if not hints.get(q["id"])]
+    if missing and llm.available():  # the model sometimes skips one; ask again for just those
+        more, _, _ = llm.write_hints(missing, missing[0]["id"])
+        hints.update(more)
     title = title or _fallback_title(qs)
     issue = {
         "number": number,
