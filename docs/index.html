@@ -54,10 +54,278 @@
 </section>
 
 <div class="wrap">
-  <section class="empty">
-    <h2>The first issue lands on the next Monday or Thursday</h2>
-    <p class="muted">Meanwhile, work through the <a href="start.html">15 essential questions</a> every candidate should be able to answer.</p>
-  </section>
+  <p class="section-label">Latest issue</p>
+  <article class="issue"><header class="issue-head">
+  <p class="kicker">Issue #1 · Nov 12, 2026 · 15 questions</p>
+  <h2 class="issue-title">Linear Regression, L1 vs L2 and Transformer Tensors</h2>
+  <p class="lede">Answer each one out loud before opening the hint. Anything you can't explain clearly in two minutes goes on your study list.</p>
+  <nav class="jump" aria-label="Topics in this issue">
+<a href="#t-1-ml_fundamentals">ML Fundamentals <span>3</span></a><a href="#t-1-deep_learning">Deep Learning <span>1</span></a><a href="#t-1-llms">LLMs &amp; Transformers <span>3</span></a><a href="#t-1-rag_agents">RAG &amp; Agents <span>3</span></a><a href="#t-1-mlops">MLOps &amp; Production <span>1</span></a><a href="#t-1-system_design">ML / AI System Design <span>2</span></a><a href="#t-1-stats_math">Stats &amp; Math <span>1</span></a><a href="#t-1-coding">Coding &amp; Implementation <span>1</span></a>  </nav>
+</header>
+
+<div class="progress" data-total="15" aria-live="polite">
+  <div class="progress-bar"><span style="width:0%"></span></div>
+  <p><strong class="progress-n">0</strong> of 15 you can answer</p>
+</div>
+
+<section class="deep" aria-labelledby="deep-1">
+  <p class="kicker">Deep dive</p>
+  <h2 id="deep-1">Walk me through what happens, tensor by tensor, in one forward pass of a decoder-only transformer.</h2>
+  <details class="deep-answer"><summary>Try it first, then read a model answer</summary>
+<p>We begin with an input token sequence of shape (batch_size, sequence_length), which passes through an embedding layer to yield tensor X of shape (batch_size, seq_len, d_model).</p><p>Next, X enters the transformer block layers. Each layer applies RMSNorm or LayerNorm, followed by self-attention projections. We compute Query, Key, and Value tensors by multiplying X with weight matrices, reshaping to multi-head format (batch, heads, seq_len, d_head), applying causal masking, and computing scaled dot-product attention.</p><p>The attention output tensor is projected back to d_model, added to the original X via a residual connection, and normalized again. This tensor then passes through the feed-forward network, typically utilizing gated activations like SwiGLU, expanding hidden dimensions before projecting back to d_model.</p><p>After passing through all stacked decoder layers, the final tensor is normalized and projected via the language model head weight matrix to produce logits of shape (batch_size, seq_len, vocab_size), predicting the next token probabilities.</p>  </details>
+</section>
+
+<section class="topic" id="t-1-ml_fundamentals">
+  <h2 class="topic-h">ML Fundamentals</h2>
+  <ol class="qs">
+<li class="q" id="q-efd1c5382449" data-qid="efd1c5382449">
+  <span class="q-num" aria-hidden="true">01</span>
+  <div class="q-body">
+    <p class="q-text">What is the closed-form solution of linear regression, and when do you use gradient descent instead?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Mention the normal equation and its cubic time complexity with respect to features. Contrast this with gradient descent for massive datasets.</p></details>
+      <label class="know"><input type="checkbox" data-know="efd1c5382449"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-69adea331922" data-qid="69adea331922">
+  <span class="q-num" aria-hidden="true">02</span>
+  <div class="q-body">
+    <p class="q-text">What are the differences between L1 and L2 regularization in logistic regression?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explain sparsity via absolute penalties versus shrinkage via squared penalties, and how they behave with correlated features.</p></details>
+      <label class="know"><input type="checkbox" data-know="69adea331922"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-dc992b67f524" data-qid="dc992b67f524">
+  <span class="q-num" aria-hidden="true">03</span>
+  <div class="q-body">
+    <p class="q-text">A network confuses pugs and pit bulls and some training labels are wrong. How do you modify the model and the data?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Address noisy labels using robust loss functions or confidence weighting, and handle fine-grained visual classes using attention maps or metric learning.</p></details>
+      <label class="know"><input type="checkbox" data-know="dc992b67f524"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-deep_learning">
+  <h2 class="topic-h">Deep Learning</h2>
+  <ol class="qs">
+<li class="q" id="q-94410f219302" data-qid="94410f219302">
+  <span class="q-num" aria-hidden="true">04</span>
+  <div class="q-body">
+    <p class="q-text">You need one embedding space for your own domain: product photos, spec sheets as PDFs, and text queries. Off-the-shelf CLIP is not good enough. How do you build it?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/10-multimodal/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Discuss multi-modal joint embedding spaces, PDF parsing strategies, contrastive fine-tuning, and hard negative mining.</p></details>
+      <label class="know"><input type="checkbox" data-know="94410f219302"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-llms">
+  <h2 class="topic-h">LLMs &amp; Transformers</h2>
+  <ol class="qs">
+<li class="q" id="q-508bd5b71fce" data-qid="508bd5b71fce">
+  <span class="q-num" aria-hidden="true">05</span>
+  <div class="q-body">
+    <p class="q-text">GLM-4.5 is an MoE with 355B total but 32B active parameters. Explain the economics: what does that split buy you and what does it cost?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Analyze inference capacity scaling, memory bandwidth bottlenecks, routing overhead, and pre-training throughput tradeoffs.</p></details>
+      <label class="know"><input type="checkbox" data-know="508bd5b71fce"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-d6a8aa7b960f" data-qid="d6a8aa7b960f">
+  <span class="q-num" aria-hidden="true">06</span>
+  <div class="q-body">
+    <p class="q-text">Walk me through what happens, tensor by tensor, in one forward pass of a decoder-only transformer.</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://x.com/amitiitbhu/status/2120013175483744475" rel="noopener" target="_blank">via X</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Trace tokenization, embedding lookup, multi-head attention projections, residual additions, layer normalization, and feed-forward transformations.</p></details>
+      <label class="know"><input type="checkbox" data-know="d6a8aa7b960f"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-0694856f3c22" data-qid="0694856f3c22">
+  <span class="q-num" aria-hidden="true">07</span>
+  <div class="q-body">
+    <p class="q-text">Your DPO run improved general chat evaluations but regressed math performance. What are your hypotheses for why this happened?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/main/14-company-interview-questions/scale-ai.md" rel="noopener" target="_blank">via github.com</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explore reward hacking, catastrophic forgetting, and distribution shifts between conversational style data and precise reasoning benchmarks.</p></details>
+      <label class="know"><input type="checkbox" data-know="0694856f3c22"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-rag_agents">
+  <h2 class="topic-h">RAG &amp; Agents</h2>
+  <ol class="qs">
+<li class="q" id="q-8d5de869b726" data-qid="8d5de869b726">
+  <span class="q-num" aria-hidden="true">08</span>
+  <div class="q-body">
+    <p class="q-text">How would you benchmark an LLM agent&#39;s tool use, say, for enterprise workflows composing 10+ APIs?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Propose multi-turn execution environments, deterministic mock APIs, correctness verification, and cost-latency profiling frameworks.</p></details>
+      <label class="know"><input type="checkbox" data-know="8d5de869b726"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-e9131769def4" data-qid="e9131769def4">
+  <span class="q-num" aria-hidden="true">09</span>
+  <div class="q-body">
+    <p class="q-text">Users ask “how many open orders are blocked on a supplier issue?” Plain RAG gets this wrong. Why, and what&#39;s the right architecture?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Highlight aggregation limitations of unstructured search, and advocate for Text-to-SQL or hybrid structured-unstructured retrieval pipelines.</p></details>
+      <label class="know"><input type="checkbox" data-know="e9131769def4"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-0ce21660e62a" data-qid="0ce21660e62a">
+  <span class="q-num" aria-hidden="true">10</span>
+  <div class="q-body">
+    <p class="q-text">The patient&#39;s chart already lists their medications. How would you use that to improve transcription of drug names, and how would you keep it from backfiring?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Cover biasing speech recognition decoding graphs with patient vocabularies, alongside mitigation for hallucinations when charts are incomplete.</p></details>
+      <label class="know"><input type="checkbox" data-know="0ce21660e62a"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-mlops">
+  <h2 class="topic-h">MLOps &amp; Production</h2>
+  <ol class="qs">
+<li class="q" id="q-7c597d6a5930" data-qid="7c597d6a5930">
+  <span class="q-num" aria-hidden="true">11</span>
+  <div class="q-body">
+    <p class="q-text">How do you load test an LLM service so the numbers actually mean something?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/08-inference-and-production/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Focus on realistic workload traffic patterns, TTFT versus ITL metrics, concurrency ramps, and avoiding synthetic client-side bottlenecks.</p></details>
+      <label class="know"><input type="checkbox" data-know="7c597d6a5930"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-system_design">
+  <h2 class="topic-h">ML / AI System Design</h2>
+  <ol class="qs">
+<li class="q" id="q-369d74d1cb30" data-qid="369d74d1cb30">
+  <span class="q-num" aria-hidden="true">12</span>
+  <div class="q-body">
+    <p class="q-text">When should you choose fine-tuning over RAG over prompt engineering?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Weigh cost, latency, update frequency, domain knowledge requirements, and security constraints across architectural choices.</p></details>
+      <label class="know"><input type="checkbox" data-know="369d74d1cb30"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-8ffe425619b8" data-qid="8ffe425619b8">
+  <span class="q-num" aria-hidden="true">13</span>
+  <div class="q-body">
+    <p class="q-text">Why might replacing a dense feed-forward layer with a top-2 Mixture of Experts (MoE) increase end-to-end inference latency despite executing fewer FLOPs per token?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://x.com/DailyDoseOfDS_/status/2118999411254767695" rel="noopener" target="_blank">via X</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Mention memory bandwidth limits, non-contiguous expert memory accesses, dynamic batching fragmentation, and all-to-all communication overhead.</p></details>
+      <label class="know"><input type="checkbox" data-know="8ffe425619b8"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-stats_math">
+  <h2 class="topic-h">Stats &amp; Math</h2>
+  <ol class="qs">
+<li class="q" id="q-dc8a0ecfabc5" data-qid="dc8a0ecfabc5">
+  <span class="q-num" aria-hidden="true">14</span>
+  <div class="q-body">
+    <p class="q-text">What are Type I and Type II errors?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · machine learning interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Define false positives and false negatives clearly in the context of hypothesis testing or classification thresholds.</p></details>
+      <label class="know"><input type="checkbox" data-know="dc8a0ecfabc5"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-1-coding">
+  <h2 class="topic-h">Coding &amp; Implementation</h2>
+  <ol class="qs">
+<li class="q" id="q-bf7e45b90b8a" data-qid="bf7e45b90b8a">
+  <span class="q-num" aria-hidden="true">15</span>
+  <div class="q-body">
+    <p class="q-text">Implement beam search for an autoregressive model. When would an answer engine actually use it?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Describe probability tracking, pruning, and length penalties. Explain its use in high-stakes structured generation tasks.</p></details>
+      <label class="know"><input type="checkbox" data-know="bf7e45b90b8a"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+</article>
 
 
 <section class="sub-card" id="subscribe-bottom" aria-labelledby="sub-h-bottom">

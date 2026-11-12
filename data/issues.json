@@ -1,1 +1,176 @@
-[]
+[
+ {
+  "number": 1,
+  "date": "2026-11-12T09:42:04+00:00",
+  "title": "Linear Regression, L1 vs L2 and Transformer Tensors",
+  "subject": "#1: Linear Regression, L1 vs L2 and Transformer Tensors",
+  "topics": [
+   "coding",
+   "deep_learning",
+   "llms",
+   "ml_fundamentals",
+   "mlops",
+   "rag_agents",
+   "stats_math",
+   "system_design"
+  ],
+  "questions": [
+   {
+    "id": "efd1c5382449",
+    "text": "What is the closed-form solution of linear regression, and when do you use gradient descent instead?",
+    "topic": "ml_fundamentals",
+    "difficulty": "easy",
+    "hint": "Mention the normal equation and its cubic time complexity with respect to features. Contrast this with gradient descent for massive datasets.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "69adea331922",
+    "text": "What are the differences between L1 and L2 regularization in logistic regression?",
+    "topic": "ml_fundamentals",
+    "difficulty": "easy",
+    "hint": "Explain sparsity via absolute penalties versus shrinkage via squared penalties, and how they behave with correlated features.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "dc992b67f524",
+    "text": "A network confuses pugs and pit bulls and some training labels are wrong. How do you modify the model and the data?",
+    "topic": "ml_fundamentals",
+    "difficulty": "medium",
+    "hint": "Address noisy labels using robust loss functions or confidence weighting, and handle fine-grained visual classes using attention maps or metric learning.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": true
+   },
+   {
+    "id": "94410f219302",
+    "text": "You need one embedding space for your own domain: product photos, spec sheets as PDFs, and text queries. Off-the-shelf CLIP is not good enough. How do you build it?",
+    "topic": "deep_learning",
+    "difficulty": "hard",
+    "hint": "Discuss multi-modal joint embedding spaces, PDF parsing strategies, contrastive fine-tuning, and hard negative mining.",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/10-multimodal/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "508bd5b71fce",
+    "text": "GLM-4.5 is an MoE with 355B total but 32B active parameters. Explain the economics: what does that split buy you and what does it cost?",
+    "topic": "llms",
+    "difficulty": "medium",
+    "hint": "Analyze inference capacity scaling, memory bandwidth bottlenecks, routing overhead, and pre-training throughput tradeoffs.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "d6a8aa7b960f",
+    "text": "Walk me through what happens, tensor by tensor, in one forward pass of a decoder-only transformer.",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "Trace tokenization, embedding lookup, multi-head attention projections, residual additions, layer normalization, and feed-forward transformations.",
+    "source_url": "https://x.com/amitiitbhu/status/2120013175483744475",
+    "source_name": "X",
+    "fresh": true
+   },
+   {
+    "id": "0694856f3c22",
+    "text": "Your DPO run improved general chat evaluations but regressed math performance. What are your hypotheses for why this happened?",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "Explore reward hacking, catastrophic forgetting, and distribution shifts between conversational style data and precise reasoning benchmarks.",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/main/14-company-interview-questions/scale-ai.md",
+    "source_name": "github.com",
+    "fresh": true
+   },
+   {
+    "id": "8d5de869b726",
+    "text": "How would you benchmark an LLM agent's tool use, say, for enterprise workflows composing 10+ APIs?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "Propose multi-turn execution environments, deterministic mock APIs, correctness verification, and cost-latency profiling frameworks.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": true
+   },
+   {
+    "id": "e9131769def4",
+    "text": "Users ask “how many open orders are blocked on a supplier issue?” Plain RAG gets this wrong. Why, and what's the right architecture?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "Highlight aggregation limitations of unstructured search, and advocate for Text-to-SQL or hybrid structured-unstructured retrieval pipelines.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "0ce21660e62a",
+    "text": "The patient's chart already lists their medications. How would you use that to improve transcription of drug names, and how would you keep it from backfiring?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "Cover biasing speech recognition decoding graphs with patient vocabularies, alongside mitigation for hallucinations when charts are incomplete.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "7c597d6a5930",
+    "text": "How do you load test an LLM service so the numbers actually mean something?",
+    "topic": "mlops",
+    "difficulty": "hard",
+    "hint": "Focus on realistic workload traffic patterns, TTFT versus ITL metrics, concurrency ramps, and avoiding synthetic client-side bottlenecks.",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/08-inference-and-production/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "369d74d1cb30",
+    "text": "When should you choose fine-tuning over RAG over prompt engineering?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "Weigh cost, latency, update frequency, domain knowledge requirements, and security constraints across architectural choices.",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "8ffe425619b8",
+    "text": "Why might replacing a dense feed-forward layer with a top-2 Mixture of Experts (MoE) increase end-to-end inference latency despite executing fewer FLOPs per token?",
+    "topic": "system_design",
+    "difficulty": "hard",
+    "hint": "Mention memory bandwidth limits, non-contiguous expert memory accesses, dynamic batching fragmentation, and all-to-all communication overhead.",
+    "source_url": "https://x.com/DailyDoseOfDS_/status/2118999411254767695",
+    "source_name": "X",
+    "fresh": true
+   },
+   {
+    "id": "dc8a0ecfabc5",
+    "text": "What are Type I and Type II errors?",
+    "topic": "stats_math",
+    "difficulty": "easy",
+    "hint": "Define false positives and false negatives clearly in the context of hypothesis testing or classification thresholds.",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "bf7e45b90b8a",
+    "text": "Implement beam search for an autoregressive model. When would an answer engine actually use it?",
+    "topic": "coding",
+    "difficulty": "medium",
+    "hint": "Describe probability tracking, pruning, and length penalties. Explain its use in high-stakes structured generation tasks.",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   }
+  ],
+  "deep_dive": {
+   "id": "d6a8aa7b960f",
+   "text": "Walk me through what happens, tensor by tensor, in one forward pass of a decoder-only transformer.",
+   "answer": "We begin with an input token sequence of shape (batch_size, sequence_length), which passes through an embedding layer to yield tensor X of shape (batch_size, seq_len, d_model).\n\nNext, X enters the transformer block layers. Each layer applies RMSNorm or LayerNorm, followed by self-attention projections. We compute Query, Key, and Value tensors by multiplying X with weight matrices, reshaping to multi-head format (batch, heads, seq_len, d_head), applying causal masking, and computing scaled dot-product attention.\n\nThe attention output tensor is projected back to d_model, added to the original X via a residual connection, and normalized again. This tensor then passes through the feed-forward network, typically utilizing gated activations like SwiGLU, expanding hidden dimensions before projecting back to d_model.\n\nAfter passing through all stacked decoder layers, the final tensor is normalized and projected via the language model head weight matrix to produce logits of shape (batch_size, seq_len, vocab_size), predicting the next token probabilities."
+  },
+  "campaign_id": 5
+ }
+]
