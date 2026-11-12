@@ -36,14 +36,14 @@
     <p class="pill"><span class="pulse" aria-hidden="true"></span> New issue every Monday &amp; Thursday</p>
     <h1 class="hero-title">Hear the interview questions <em>before</em> the interview.</h1>
     <p class="hero-sub">15 AI/ML engineer interview questions, twice a week. Collected from what engineers are posting right now, with a hint for each and one worked answer.</p>
-    <div class="hero-form" id="subscribe"><form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
+    <div class="hero-form" id="subscribe"><form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" class="sub-form" data-sub>
   <label class="sr" for="email-hero">Email address</label>
   <input id="email-hero" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
   <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button class="btn" type="submit">Subscribe</button>
 </form>
-<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+<p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
 </div>
     <ul class="stats" aria-label="At a glance">
       <li><strong>1,600+</strong><span>questions in the bank, deduplicated</span></li>
@@ -65,14 +65,14 @@
     <h2 id="sub-h-bottom">Get the next 15 in your inbox</h2>
     <p class="muted">Practising beats re-reading. Two short sets a week keeps you sharp without eating your evenings.</p>
   </div>
-  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
+  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" class="sub-form" data-sub>
   <label class="sr" for="email-bottom">Email address</label>
   <input id="email-bottom" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
   <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button class="btn" type="submit">Subscribe</button>
 </form>
-<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+<p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
 
 </section>
 
@@ -91,6 +91,23 @@
     </nav>
   </div>
 </footer>
+<script>
+document.querySelectorAll("form[data-sub]").forEach(function (f) {
+  f.addEventListener("submit", function (e) {
+    if (!window.fetch || !window.FormData) return;           // old browsers: normal form post
+    e.preventDefault();
+    var btn = f.querySelector("button"), msg = f.parentElement.querySelector("[data-sub-msg]");
+    btn.disabled = true; btn.textContent = "Subscribing…";
+    fetch(f.action, { method: "POST", body: new FormData(f), mode: "no-cors" })
+      .then(function () {
+        f.classList.add("sub-done");
+        f.innerHTML = '<p class="sub-ok" role="status">You\u2019re in! The next issue arrives Monday or Thursday.</p>';
+        if (msg) msg.textContent = "Tip: if it lands in spam, mark it \u201cNot spam\u201d so future issues reach your inbox.";
+      })
+      .catch(function () { f.submit(); });                    // network trouble: fall back to normal post
+  });
+});
+</script>
 <script>
 (function () {
   var store = {

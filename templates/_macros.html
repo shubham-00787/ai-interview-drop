@@ -1,13 +1,13 @@
 {% macro subscribe_form(form_action, uid) %}
 {% if form_action %}
-<form method="post" action="{{ form_action }}" target="_blank" class="sub-form">
+<form method="post" action="{{ form_action }}" class="sub-form" data-sub>
   <label class="sr" for="email-{{ uid }}">Email address</label>
   <input id="email-{{ uid }}" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
   <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button class="btn" type="submit">Subscribe</button>
 </form>
-<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+<p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
 {% else %}
 <p class="soon">Email subscriptions open soon.</p>
 {% endif %}

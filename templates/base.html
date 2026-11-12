@@ -46,6 +46,23 @@
     </nav>
   </div>
 </footer>
+<script>
+document.querySelectorAll("form[data-sub]").forEach(function (f) {
+  f.addEventListener("submit", function (e) {
+    if (!window.fetch || !window.FormData) return;           // old browsers: normal form post
+    e.preventDefault();
+    var btn = f.querySelector("button"), msg = f.parentElement.querySelector("[data-sub-msg]");
+    btn.disabled = true; btn.textContent = "Subscribing…";
+    fetch(f.action, { method: "POST", body: new FormData(f), mode: "no-cors" })
+      .then(function () {
+        f.classList.add("sub-done");
+        f.innerHTML = '<p class="sub-ok" role="status">You\u2019re in! The next issue arrives Monday or Thursday.</p>';
+        if (msg) msg.textContent = "Tip: if it lands in spam, mark it \u201cNot spam\u201d so future issues reach your inbox.";
+      })
+      .catch(function () { f.submit(); });                    // network trouble: fall back to normal post
+  });
+});
+</script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

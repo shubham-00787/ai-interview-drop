@@ -106,6 +106,7 @@ p { text-wrap: pretty; }
   background: var(--surface); border: 1px solid var(--line-2); border-radius: 10px; }
 .sub-form input[type=email]::placeholder { color: var(--muted); }
 .sub-form input[type=email]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.sub-ok { margin: 0; padding: 12px 14px; border-radius: 10px; background: var(--ok-soft); color: var(--ok); font-weight: 600; flex: 1; text-align: center; }
 .fine { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
 .soon { color: var(--muted); font-style: italic; }
 @media (max-width: 440px) { .sub-form { flex-direction: column; } .sub-form .btn { width: 100%; } }

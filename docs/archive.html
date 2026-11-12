@@ -43,14 +43,14 @@
     <h2 id="sub-h-archive">Never miss an issue</h2>
     <p class="muted">15 new questions every Monday and Thursday. Free.</p>
   </div>
-  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
+  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" class="sub-form" data-sub>
   <label class="sr" for="email-archive">Email address</label>
   <input id="email-archive" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
   <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button class="btn" type="submit">Subscribe</button>
 </form>
-<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+<p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
 
 </section>
 
@@ -69,5 +69,22 @@
     </nav>
   </div>
 </footer>
+<script>
+document.querySelectorAll("form[data-sub]").forEach(function (f) {
+  f.addEventListener("submit", function (e) {
+    if (!window.fetch || !window.FormData) return;           // old browsers: normal form post
+    e.preventDefault();
+    var btn = f.querySelector("button"), msg = f.parentElement.querySelector("[data-sub-msg]");
+    btn.disabled = true; btn.textContent = "Subscribing…";
+    fetch(f.action, { method: "POST", body: new FormData(f), mode: "no-cors" })
+      .then(function () {
+        f.classList.add("sub-done");
+        f.innerHTML = '<p class="sub-ok" role="status">You\u2019re in! The next issue arrives Monday or Thursday.</p>';
+        if (msg) msg.textContent = "Tip: if it lands in spam, mark it \u201cNot spam\u201d so future issues reach your inbox.";
+      })
+      .catch(function () { f.submit(); });                    // network trouble: fall back to normal post
+  });
+});
+</script>
 </body>
 </html>
