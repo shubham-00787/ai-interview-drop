@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "_macros.html" import subscribe, question %}
+{% block title %}Start here · {{ name }}{% endblock %}
+{% block body %}
+<p class="kicker">Start here</p>
+<h1>15 questions every AI/ML engineer candidate should be able to answer</h1>
+<p class="lede">Two from each area, from fundamentals to RAG and system design. Nail these first, then the twice-weekly issues keep you current.</p>
+<ol class="qs">{% for q in questions %}{{ question(q, loop.index, topics, show_hint=False) }}{% endfor %}</ol>
+{{ subscribe(form_action, compact=True) }}
+{% endblock %}

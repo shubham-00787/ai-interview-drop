@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_macros.html" import subscribe, issue_body %}
+{% block body %}
+<section class="hero">
+  <h1 class="hero-title">{{ name }}</h1>
+  <p class="hero-sub">{{ tagline }}</p>
+</section>
+{{ subscribe(form_action) }}
+{% if latest %}
+<article class="issue">{{ issue_body(latest, topics) }}</article>
+{% else %}
+<p class="muted">The first issue arrives on the next Monday or Thursday. Meanwhile, <a href="start.html">start here</a>.</p>
+{% endif %}
+{% if recent %}
+<section class="recent">
+  <h2>Earlier issues</h2>
+  <ul class="list">{% for i in recent %}<li><a href="issues/{{ i.number }}.html">#{{ i.number }} · {{ i.subject.split(': ',1)[-1] }}</a><span class="muted"> {{ i.date|nicedate }}</span></li>{% endfor %}</ul>
+  <p><a href="archive.html">All issues →</a></p>
+</section>
+{% endif %}
+{% endblock %}

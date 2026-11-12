@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ name }}{% endblock %}</title>
+<meta name="description" content="{{ tagline }}">
+<link rel="stylesheet" href="{{ root }}style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="{{ root }}index.html">{{ name }}</a>
+    <nav>
+      <a href="{{ root }}start.html">Start here</a>
+      <a href="{{ root }}archive.html">Archive</a>
+      <a class="nav-sub" href="#subscribe">Subscribe</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+{% block body %}{% endblock %}
+</main>
+<footer class="wrap foot">
+  <p>Questions are collected from public posts, forums and open-source question banks, then deduplicated and tagged automatically. Each one links to where it came from.</p>
+</footer>
+</body>
+</html>

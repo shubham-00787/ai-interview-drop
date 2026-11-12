@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+preview/
+.fastembed_cache/
+.claude/
+.DS_Store

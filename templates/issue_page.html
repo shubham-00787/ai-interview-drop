@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% from "_macros.html" import subscribe, issue_body %}
+{% block title %}#{{ issue.number }} · {{ name }}{% endblock %}
+{% block body %}
+<article class="issue">{{ issue_body(issue, topics) }}</article>
+{{ subscribe(form_action, "Get the next issue by email", compact=True) }}
+{% endblock %}

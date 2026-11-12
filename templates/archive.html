@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "_macros.html" import subscribe %}
+{% block title %}Archive · {{ name }}{% endblock %}
+{% block body %}
+<h1>Archive</h1>
+{% if issues %}
+<ul class="list">{% for i in issues %}<li><a href="issues/{{ i.number }}.html">#{{ i.number }} · {{ i.subject.split(': ',1)[-1] }}</a><span class="muted"> {{ i.date|nicedate }}</span></li>{% endfor %}</ul>
+{% else %}<p class="muted">No issues yet.</p>{% endif %}
+{{ subscribe(form_action, compact=True) }}
+{% endblock %}

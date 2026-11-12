@@ -1,0 +1,51 @@
+{% macro subscribe(form_action, heading="Get 15 new questions in your inbox every Monday & Thursday", compact=False) %}
+<section class="subscribe{% if compact %} compact{% endif %}" id="subscribe">
+  <h2>{{ heading }}</h2>
+  <p class="muted">Free. No spam. Unsubscribe with one click.</p>
+  {% if form_action %}
+  <form method="post" action="{{ form_action }}" target="_blank" class="sub-form">
+    <label class="sr" for="email-{{ heading|length }}">Email address</label>
+    <input id="email-{{ heading|length }}" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+    <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="locale" value="en">
+    <button type="submit">Subscribe</button>
+  </form>
+  {% else %}
+  <p class="soon">Email subscriptions open soon.</p>
+  {% endif %}
+</section>
+{% endmacro %}
+
+{% macro question(q, n, topics, show_hint=True) %}
+<li class="q">
+  <div class="q-meta">
+    <span class="num">{{ n }}</span>
+    <span class="chip">{{ topics[q.topic] }}</span>
+    {% if q.difficulty %}<span class="chip d-{{ q.difficulty }}">{{ q.difficulty }}</span>{% endif %}
+    {% if q.fresh %}<span class="chip new">asked this week</span>{% endif %}
+  </div>
+  <p class="q-text">{{ q.text }}</p>
+  {% if show_hint and q.hint %}
+  <details><summary>What a strong answer covers</summary><p>{{ q.hint }}</p></details>
+  {% endif %}
+  <a class="src" href="{{ q.source_url }}" rel="noopener">Source: {{ q.source_name }}</a>
+</li>
+{% endmacro %}
+
+{% macro issue_body(issue, topics) %}
+<p class="kicker">Issue #{{ issue.number }} · {{ issue.date|nicedate }}</p>
+<h1>{{ issue.subject.split(': ', 1)[1] if ': ' in issue.subject else issue.subject }}</h1>
+<p class="lede">Try answering each one out loud before opening the hint. If you can't explain it in two minutes, that's your study list.</p>
+{% if issue.deep_dive %}
+<section class="deep">
+  <p class="kicker">Deep dive</p>
+  <h2>{{ issue.deep_dive.text }}</h2>
+  <details><summary>Show a model answer</summary>
+    {% for p in issue.deep_dive.answer|paras %}<p>{{ p }}</p>{% endfor %}
+  </details>
+</section>
+{% endif %}
+<ol class="qs">
+{% for q in issue.questions %}{{ question(q, loop.index, topics) }}{% endfor %}
+</ol>
+{% endmacro %}
