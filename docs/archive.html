@@ -3,38 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Archive · The AI/ML Interview Drop</title>
+<title>All issues · The AI/ML Interview Drop</title>
 <meta name="description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta property="og:title" content="All issues · The AI/ML Interview Drop">
+<meta property="og:description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c2410c'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="index.html">The AI/ML Interview Drop</a>
-    <nav>
+    <a class="brand" href="index.html" aria-label="The AI/ML Interview Drop home">
+      <span class="mark" aria-hidden="true">?</span>
+      <span class="brand-name">The AI/ML Interview Drop</span>
+    </a>
+    <nav aria-label="Main">
       <a href="start.html">Start here</a>
       <a href="archive.html">Archive</a>
-      <a class="nav-sub" href="#subscribe">Subscribe</a>
+      <a class="btn btn-small" href="#subscribe">Subscribe</a>
     </nav>
   </div>
 </header>
-<main class="wrap">
-<h1>Archive</h1>
-<p class="muted">No issues yet.</p><section class="subscribe compact" id="subscribe">
-  <h2>Get 15 new questions in your inbox every Monday &amp; Thursday</h2>
-  <p class="muted">Free. No spam. Unsubscribe with one click.</p>
+<main id="main">
+<div class="wrap">
+  <header class="page-head">
+    <p class="kicker">Archive</p>
+    <h1 class="issue-title">Every issue so far</h1>
+    <p class="lede">0 issues · 0 questions. Your "I can answer this" ticks are saved in this browser.</p>
+  </header>
+  <p class="muted">No issues yet. The first one lands on the next Monday or Thursday.</p>
+  <section class="sub-card" id="subscribe" aria-labelledby="sub-h-archive">
+  <div>
+    <h2 id="sub-h-archive">Never miss an issue</h2>
+    <p class="muted">15 new questions every Monday and Thursday. Free.</p>
+  </div>
   <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
-    <label class="sr" for="email-58">Email address</label>
-    <input id="email-58" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
-    <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <input type="hidden" name="locale" value="en">
-    <button type="submit">Subscribe</button>
-  </form>
+  <label class="sr" for="email-archive">Email address</label>
+  <input id="email-archive" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+  <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button class="btn" type="submit">Subscribe</button>
+</form>
+<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+
 </section>
 
+</div>
 </main>
-<footer class="wrap foot">
-  <p>Questions are collected from public posts, forums and open-source question banks, then deduplicated and tagged automatically. Each one links to where it came from.</p>
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-brand"><span class="mark mark-sm" aria-hidden="true">?</span> The AI/ML Interview Drop</p>
+      <p class="muted">Questions are collected from public posts on X, LinkedIn, Reddit, Hacker News and the web, plus openly licensed question banks. They're deduplicated, tagged and balanced automatically, and each one links to its source.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="start.html">Start here</a>
+      <a href="archive.html">All issues</a>
+      <a href="https://github.com/shubham-00787/ai-interview-drop">Source code</a>
+    </nav>
+  </div>
 </footer>
 </body>
 </html>

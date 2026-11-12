@@ -1,10 +1,18 @@
 {% extends "base.html" %}
-{% from "_macros.html" import subscribe %}
-{% block title %}Archive · {{ name }}{% endblock %}
+{% from "_macros.html" import subscribe_card, issue_row %}
+{% block title %}All issues · {{ name }}{% endblock %}
 {% block body %}
-<h1>Archive</h1>
-{% if issues %}
-<ul class="list">{% for i in issues %}<li><a href="issues/{{ i.number }}.html">#{{ i.number }} · {{ i.subject.split(': ',1)[-1] }}</a><span class="muted"> {{ i.date|nicedate }}</span></li>{% endfor %}</ul>
-{% else %}<p class="muted">No issues yet.</p>{% endif %}
-{{ subscribe(form_action, compact=True) }}
+<div class="wrap">
+  <header class="page-head">
+    <p class="kicker">Archive</p>
+    <h1 class="issue-title">Every issue so far</h1>
+    <p class="lede">{{ issues|length }} issue{{ "s" if issues|length != 1 }} · {{ issues|length * 15 }} questions. Your "I can answer this" ticks are saved in this browser.</p>
+  </header>
+  {% if issues %}
+  <ul class="rows">{% for i in issues %}{{ issue_row(i, topics, "") }}{% endfor %}</ul>
+  {% else %}
+  <p class="muted">No issues yet. The first one lands on the next Monday or Thursday.</p>
+  {% endif %}
+  {{ subscribe_card(form_action, "Never miss an issue", "15 new questions every Monday and Thursday. Free.", "archive") }}
+</div>
 {% endblock %}

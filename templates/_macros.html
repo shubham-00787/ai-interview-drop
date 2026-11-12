@@ -1,51 +1,132 @@
-{% macro subscribe(form_action, heading="Get 15 new questions in your inbox every Monday & Thursday", compact=False) %}
-<section class="subscribe{% if compact %} compact{% endif %}" id="subscribe">
-  <h2>{{ heading }}</h2>
-  <p class="muted">Free. No spam. Unsubscribe with one click.</p>
-  {% if form_action %}
-  <form method="post" action="{{ form_action }}" target="_blank" class="sub-form">
-    <label class="sr" for="email-{{ heading|length }}">Email address</label>
-    <input id="email-{{ heading|length }}" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
-    <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <input type="hidden" name="locale" value="en">
-    <button type="submit">Subscribe</button>
-  </form>
-  {% else %}
-  <p class="soon">Email subscriptions open soon.</p>
-  {% endif %}
+{% macro subscribe_form(form_action, uid) %}
+{% if form_action %}
+<form method="post" action="{{ form_action }}" target="_blank" class="sub-form">
+  <label class="sr" for="email-{{ uid }}">Email address</label>
+  <input id="email-{{ uid }}" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+  <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button class="btn" type="submit">Subscribe</button>
+</form>
+<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+{% else %}
+<p class="soon">Email subscriptions open soon.</p>
+{% endif %}
+{% endmacro %}
+
+{% macro subscribe_card(form_action, heading, sub, uid, anchor="subscribe") %}
+<section class="sub-card" id="{{ anchor }}" aria-labelledby="sub-h-{{ uid }}">
+  <div>
+    <h2 id="sub-h-{{ uid }}">{{ heading }}</h2>
+    <p class="muted">{{ sub }}</p>
+  </div>
+  {{ subscribe_form(form_action, uid) }}
 </section>
 {% endmacro %}
 
-{% macro question(q, n, topics, show_hint=True) %}
-<li class="q">
-  <div class="q-meta">
-    <span class="num">{{ n }}</span>
-    <span class="chip">{{ topics[q.topic] }}</span>
-    {% if q.difficulty %}<span class="chip d-{{ q.difficulty }}">{{ q.difficulty }}</span>{% endif %}
-    {% if q.fresh %}<span class="chip new">asked this week</span>{% endif %}
+{% macro diff(d) %}{% if d %}<span class="diff diff-{{ d }}"><span class="dot" aria-hidden="true"></span>{{ d|capitalize }}</span>{% endif %}{% endmacro %}
+
+{% macro question(q, n, topics, practice=True, show_topic=False) %}
+<li class="q" id="q-{{ q.id }}" data-qid="{{ q.id }}">
+  <span class="q-num" aria-hidden="true">{{ "%02d"|format(n) }}</span>
+  <div class="q-body">
+    <p class="q-text">{{ q.text }}</p>
+    <div class="q-meta">
+      {% if show_topic %}<span class="tag">{{ topics[q.topic] }}</span>{% endif %}
+      {{ diff(q.difficulty) }}
+      {% if q.fresh %}<span class="fresh">Asked this week</span>{% endif %}
+      <a class="src" href="{{ q.source_url }}" rel="noopener" target="_blank">via {{ q|srclabel }}</a>
+    </div>
+    {% if q.hint or practice %}
+    <div class="q-actions">
+      {% if q.hint %}
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> {{ q.hint }}</p></details>
+      {% endif %}
+      {% if practice %}
+      <label class="know"><input type="checkbox" data-know="{{ q.id }}"> <span>I can answer this</span></label>
+      {% endif %}
+    </div>
+    {% endif %}
   </div>
-  <p class="q-text">{{ q.text }}</p>
-  {% if show_hint and q.hint %}
-  <details><summary>What a strong answer covers</summary><p>{{ q.hint }}</p></details>
-  {% endif %}
-  <a class="src" href="{{ q.source_url }}" rel="noopener">Source: {{ q.source_name }}</a>
 </li>
 {% endmacro %}
 
-{% macro issue_body(issue, topics) %}
-<p class="kicker">Issue #{{ issue.number }} · {{ issue.date|nicedate }}</p>
-<h1>{{ issue.subject.split(': ', 1)[1] if ': ' in issue.subject else issue.subject }}</h1>
-<p class="lede">Try answering each one out loud before opening the hint. If you can't explain it in two minutes, that's your study list.</p>
+{% macro issue_body(issue, topics, heading_tag="h1") %}
+<header class="issue-head">
+  <p class="kicker">Issue #{{ issue.number }} · {{ issue.date|nicedate }} · {{ issue.questions|length }} questions</p>
+  <{{ heading_tag }} class="issue-title">{{ issue|title_of }}</{{ heading_tag }}>
+  <p class="lede">Answer each one out loud before opening the hint. Anything you can't explain clearly in two minutes goes on your study list.</p>
+  <nav class="jump" aria-label="Topics in this issue">
+    {% for t, qs in issue.questions|bytopic %}<a href="#t-{{ issue.number }}-{{ t }}">{{ topics[t] }} <span>{{ qs|length }}</span></a>{% endfor %}
+  </nav>
+</header>
+
+<div class="progress" data-total="{{ issue.questions|length }}" aria-live="polite">
+  <div class="progress-bar"><span style="width:0%"></span></div>
+  <p><strong class="progress-n">0</strong> of {{ issue.questions|length }} you can answer</p>
+</div>
+
 {% if issue.deep_dive %}
-<section class="deep">
+<section class="deep" aria-labelledby="deep-{{ issue.number }}">
   <p class="kicker">Deep dive</p>
-  <h2>{{ issue.deep_dive.text }}</h2>
-  <details><summary>Show a model answer</summary>
+  <h2 id="deep-{{ issue.number }}">{{ issue.deep_dive.text }}</h2>
+  <details class="deep-answer"><summary>Try it first, then read a model answer</summary>
     {% for p in issue.deep_dive.answer|paras %}<p>{{ p }}</p>{% endfor %}
   </details>
 </section>
 {% endif %}
-<ol class="qs">
-{% for q in issue.questions %}{{ question(q, loop.index, topics) }}{% endfor %}
-</ol>
+
+{% set ns = namespace(n=0) %}
+{% for t, qs in issue.questions|bytopic %}
+<section class="topic" id="t-{{ issue.number }}-{{ t }}">
+  <h2 class="topic-h">{{ topics[t] }}</h2>
+  <ol class="qs">
+    {% for q in qs %}{% set ns.n = ns.n + 1 %}{{ question(q, ns.n, topics) }}{% endfor %}
+  </ol>
+</section>
+{% endfor %}
+{% endmacro %}
+
+{% macro issue_row(i, topics, root) %}
+<li class="row">
+  <a href="{{ root }}issues/{{ i.number }}.html">
+    <span class="row-num">#{{ i.number }}</span>
+    <span class="row-main">
+      <span class="row-title">{{ i|title_of }}</span>
+      <span class="row-sub">{{ i.date|nicedate }} · {% for t in i.topics[:4] %}{{ topics[t] }}{% if not loop.last %}, {% endif %}{% endfor %}{% if i.topics|length > 4 %} +{{ i.topics|length - 4 }}{% endif %}</span>
+    </span>
+    <span class="row-arrow" aria-hidden="true">→</span>
+  </a>
+</li>
+{% endmacro %}
+
+{% macro practice_script() %}
+<script>
+(function () {
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { v ? localStorage.setItem(k, "1") : localStorage.removeItem(k); } catch (e) {} }
+  };
+  function refresh() {
+    document.querySelectorAll(".progress").forEach(function (p) {
+      var scope = p.parentElement, boxes = scope.querySelectorAll("[data-know]");
+      var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
+      var total = boxes.length || +p.dataset.total;
+      p.querySelector(".progress-n").textContent = n;
+      p.querySelector(".progress-bar span").style.width = (total ? (100 * n / total) : 0) + "%";
+      p.classList.toggle("done", total > 0 && n === total);
+    });
+  }
+  document.querySelectorAll("[data-know]").forEach(function (b) {
+    var key = "iqg-know-" + b.dataset.know;
+    b.checked = store.get(key) === "1";
+    b.closest(".q").classList.toggle("known", b.checked);
+    b.addEventListener("change", function () {
+      store.set(key, b.checked);
+      b.closest(".q").classList.toggle("known", b.checked);
+      refresh();
+    });
+  });
+  refresh();
+})();
+</script>
 {% endmacro %}

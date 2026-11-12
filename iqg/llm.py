@@ -119,7 +119,7 @@ Return JSON: {{"tags": [{{"id": "...", "topic": "...", "difficulty": "...", "qua
 
 
 def write_hints(qs, deep_dive_id):
-    """qs: [{id, text}] -> ({id: hint}, deep_dive_markdown_or_None)"""
+    """qs: [{id, text}] -> ({id: hint}, deep_dive_text_or_None, title_or_None)"""
     body = "\n".join(json.dumps({"id": q["id"], "q": q["text"]}) for q in qs)
     prompt = f"""You are a senior ML engineer helping candidates prepare for AI/ML engineer interviews.
 For every question write "hint": 1-2 sentences (max 45 words) naming the key points a strong answer covers.
@@ -127,9 +127,13 @@ Do not write the full answer.
 For the question with id "{deep_dive_id}" also write "deep_dive": a concise model answer (150-220 words,
 plain text in 3-5 short paragraphs or "- " bullets, each on its own line separated by a blank line, no headings) as a strong candidate would give it.
 
-Return JSON: {{"hints": [{{"id": "...", "hint": "..."}}], "deep_dive": "..."}}
+Also write "title": a punchy issue headline, max 70 characters, naming 2-3 concrete things from this set
+(e.g. "KV caches, RAG debugging and why BatchNorm flips at inference"). No hype words, no emoji.
+
+Return JSON: {{"title": "...", "hints": [{{"id": "...", "hint": "..."}}], "deep_dive": "..."}}
 
 {body}"""
     out = ask_json(prompt) or {}
     hints = {h["id"]: h.get("hint", "") for h in out.get("hints", []) if isinstance(h, dict) and "id" in h}
-    return hints, out.get("deep_dive")
+    title = (out.get("title") or "").strip()[:90] or None
+    return hints, out.get("deep_dive"), title

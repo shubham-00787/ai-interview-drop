@@ -1,21 +1,40 @@
 {% extends "base.html" %}
-{% from "_macros.html" import subscribe, issue_body %}
+{% from "_macros.html" import subscribe_form, subscribe_card, issue_body, issue_row, practice_script %}
 {% block body %}
 <section class="hero">
-  <h1 class="hero-title">{{ name }}</h1>
-  <p class="hero-sub">{{ tagline }}</p>
+  <div class="wrap hero-inner">
+    <p class="pill"><span class="pulse" aria-hidden="true"></span> New issue every Monday &amp; Thursday</p>
+    <h1 class="hero-title">Hear the interview questions <em>before</em> the interview.</h1>
+    <p class="hero-sub">15 AI/ML engineer interview questions, twice a week. Collected from what engineers are posting right now, with a hint for each and one worked answer.</p>
+    <div class="hero-form" id="subscribe">{{ subscribe_form(form_action, "hero") }}</div>
+    <ul class="stats" aria-label="At a glance">
+      <li><strong>{{ stats.bank_round }}</strong><span>questions in the bank, deduplicated</span></li>
+      <li><strong>5 sources</strong><span>X, LinkedIn, Reddit, Hacker News, the web</span></li>
+      <li><strong>8 topics</strong><span>from fundamentals to RAG, agents and system design</span></li>
+    </ul>
+  </div>
 </section>
-{{ subscribe(form_action) }}
+
+<div class="wrap">
 {% if latest %}
-<article class="issue">{{ issue_body(latest, topics) }}</article>
+  <p class="section-label">Latest issue</p>
+  <article class="issue">{{ issue_body(latest, topics, "h2") }}</article>
 {% else %}
-<p class="muted">The first issue arrives on the next Monday or Thursday. Meanwhile, <a href="start.html">start here</a>.</p>
+  <section class="empty">
+    <h2>The first issue lands on the next Monday or Thursday</h2>
+    <p class="muted">Meanwhile, work through the <a href="start.html">15 essential questions</a> every candidate should be able to answer.</p>
+  </section>
 {% endif %}
+
 {% if recent %}
-<section class="recent">
-  <h2>Earlier issues</h2>
-  <ul class="list">{% for i in recent %}<li><a href="issues/{{ i.number }}.html">#{{ i.number }} · {{ i.subject.split(': ',1)[-1] }}</a><span class="muted"> {{ i.date|nicedate }}</span></li>{% endfor %}</ul>
-  <p><a href="archive.html">All issues →</a></p>
-</section>
+  <section class="recent">
+    <h2 class="section-h">Earlier issues</h2>
+    <ul class="rows">{% for i in recent %}{{ issue_row(i, topics, "") }}{% endfor %}</ul>
+    <p><a class="more" href="archive.html">See all issues →</a></p>
+  </section>
 {% endif %}
+
+{{ subscribe_card(form_action, "Get the next 15 in your inbox", "Practising beats re-reading. Two short sets a week keeps you sharp without eating your evenings.", "bottom", "subscribe-bottom") }}
+</div>
 {% endblock %}
+{% block scripts %}{{ practice_script() }}{% endblock %}

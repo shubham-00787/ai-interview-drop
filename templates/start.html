@@ -1,10 +1,21 @@
 {% extends "base.html" %}
-{% from "_macros.html" import subscribe, question %}
+{% from "_macros.html" import subscribe_card, question, practice_script %}
 {% block title %}Start here · {{ name }}{% endblock %}
 {% block body %}
-<p class="kicker">Start here</p>
-<h1>15 questions every AI/ML engineer candidate should be able to answer</h1>
-<p class="lede">Two from each area, from fundamentals to RAG and system design. Nail these first, then the twice-weekly issues keep you current.</p>
-<ol class="qs">{% for q in questions %}{{ question(q, loop.index, topics, show_hint=False) }}{% endfor %}</ol>
-{{ subscribe(form_action, compact=True) }}
+<div class="wrap">
+  <header class="page-head">
+    <p class="kicker">Start here</p>
+    <h1 class="issue-title">15 questions every AI/ML engineer candidate should nail</h1>
+    <p class="lede">Two from each area, from fundamentals to RAG and system design. Get these solid first, then let the twice-weekly issues keep you current.</p>
+  </header>
+  <section class="issue">
+    <div class="progress" data-total="{{ questions|length }}" aria-live="polite">
+      <div class="progress-bar"><span style="width:0%"></span></div>
+      <p><strong class="progress-n">0</strong> of {{ questions|length }} you can answer</p>
+    </div>
+    <ol class="qs">{% for q in questions %}{{ question(q, loop.index, topics, show_topic=True) }}{% endfor %}</ol>
+  </section>
+  {{ subscribe_card(form_action, "Ready for more?", "15 fresh questions every Monday and Thursday. Free.", "start") }}
+</div>
 {% endblock %}
+{% block scripts %}{{ practice_script() }}{% endblock %}

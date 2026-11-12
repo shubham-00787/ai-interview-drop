@@ -1,4 +1,5 @@
 """Twice-weekly job: pick 15 questions, write hints, publish to the site, email subscribers."""
+import json
 import random
 from collections import Counter
 from datetime import datetime, timedelta, timezone
@@ -68,9 +69,9 @@ def select(bank, number):
     return picked
 
 
-def _subject(number, qs, deep):
+def _fallback_title(qs):
     topics = [config.TOPICS[t] for t, _ in Counter(q["topic"] for q in qs).most_common(3)]
-    return f"#{number}: {len(qs)} questions. {', '.join(topics)} + more"
+    return f"{', '.join(topics[:-1])} and {topics[-1]}" if len(topics) > 1 else topics[0]
 
 
 def publish(dry_run=False):
@@ -81,11 +82,13 @@ def publish(dry_run=False):
         print(f"only {len(qs)} questions available")
     candidates = [q for q in qs if q["difficulty"] in ("medium", "hard")] or qs
     deep = max(candidates, key=lambda q: (q["origin"] == "fresh", _score(q)))
-    hints, deep_answer = llm.write_hints(qs, deep["id"]) if llm.available() else ({}, None)
+    hints, deep_answer, title = llm.write_hints(qs, deep["id"]) if llm.available() else ({}, None, None)
+    title = title or _fallback_title(qs)
     issue = {
         "number": number,
         "date": now_iso(),
-        "subject": _subject(number, qs, deep),
+        "title": title,
+        "subject": f"#{number}: {title}",
         "topics": sorted({q["topic"] for q in qs}),
         "questions": [{
             "id": q["id"], "text": q["text"], "topic": q["topic"], "difficulty": q["difficulty"],
@@ -99,6 +102,7 @@ def publish(dry_run=False):
         out = config.ROOT / "preview"
         out.mkdir(exist_ok=True)
         (out / "email.html").write_text(render.email_html(issue, preview=True))
+        (out / "issue.json").write_text(json.dumps(issue, indent=1, ensure_ascii=False))
         render.build_site(extra_issue=issue, out_dir=out / "site")
         print(f"dry run: preview/email.html and preview/site/ written ({issue['subject']})")
         return issue

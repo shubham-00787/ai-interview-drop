@@ -1,42 +1,69 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{ issue.subject }}</title></head>
-<body style="margin:0;padding:0;background:#f4f2ee;">
-<div style="display:none;max-height:0;overflow:hidden;">{{ issue.questions[0].text }}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;">
-<tr><td align="center" style="padding:24px 12px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1f1d1a;">
-  <tr><td style="padding:28px 28px 8px;">
-    <p style="margin:0;font-size:13px;color:#6b665e;letter-spacing:.04em;text-transform:uppercase;">{{ name }} · Issue #{{ issue.number }}</p>
-    <h1 style="margin:10px 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.25;font-weight:700;">{{ issue.subject.split(': ', 1)[-1] }}</h1>
-    <p style="margin:0;font-size:15px;line-height:1.55;color:#4a463f;">Answer each one out loud before reading the hint. Anything you can't explain in two minutes goes on your study list.</p>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light">
+<title>{{ issue.subject }}</title>
+</head>
+{% set C = {"easy": "#2563eb", "medium": "#b45309", "hard": "#be123c"} %}
+{% set issue_url = site_url ~ "/issues/" ~ issue.number ~ ".html" %}
+<body style="margin:0;padding:0;background:#f7f4ee;-webkit-text-size-adjust:100%;">
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">{{ issue.questions|length }} questions this time, including: {{ issue.deep_dive.text if issue.deep_dive else issue.questions[0].text }}&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f7f4ee;">
+<tr><td align="center" style="padding:28px 12px 40px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1c1a17;">
+
+  <!-- brand -->
+  <tr><td style="padding:0 4px 16px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+      <td style="width:28px;height:28px;background:#c2410c;border-radius:7px;text-align:center;vertical-align:middle;color:#ffffff;font:700 17px/28px Georgia,serif;">?</td>
+      <td style="padding-left:10px;font:700 16px Georgia,'Times New Roman',serif;color:#1c1a17;">{{ name }}</td>
+    </tr></table>
   </td></tr>
-  {% if issue.deep_dive %}
-  <tr><td style="padding:16px 28px 4px;">
-    <div style="border-left:3px solid #b4572e;background:#faf6f1;padding:14px 16px;border-radius:4px;">
-      <p style="margin:0 0 6px;font-size:12px;color:#b4572e;font-weight:700;text-transform:uppercase;letter-spacing:.05em;">Deep dive</p>
-      <p style="margin:0 0 10px;font-size:17px;font-weight:700;line-height:1.35;">{{ issue.deep_dive.text }}</p>
-      {% for p in issue.deep_dive.answer|paras %}<p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#33302b;">{{ p }}</p>{% endfor %}
-    </div>
+
+  <!-- card -->
+  <tr><td style="background:#fffdf9;border:1px solid #e4ddd1;border-radius:14px;padding:32px 28px 8px;">
+    <p style="margin:0;font-size:13px;color:#7a7368;">Issue #{{ issue.number }} · {{ issue.date|nicedate }} · {{ issue.questions|length }} questions</p>
+    <h1 style="margin:10px 0 12px;font:700 27px/1.2 Georgia,'Times New Roman',serif;letter-spacing:-.01em;color:#1c1a17;">{{ issue|title_of }}</h1>
+    <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#4a453d;">Answer each one out loud first, then check the hint. Anything you can't explain in two minutes goes on your study list.</p>
+
+    {% if issue.deep_dive %}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 8px;"><tr><td style="background:#fbeee5;border:1px solid #f0cdb8;border-radius:12px;padding:18px 20px;">
+      <p style="margin:0 0 6px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c2410c;">Deep dive</p>
+      <p style="margin:0 0 10px;font:700 18px/1.35 Georgia,serif;color:#1c1a17;">{{ issue.deep_dive.text }}</p>
+      {% for p in issue.deep_dive.answer|paras %}<p style="margin:0 0 10px;font-size:14.5px;line-height:1.6;color:#4a453d;">{{ p }}</p>{% endfor %}
+    </td></tr></table>
+    {% endif %}
+
+    {% set ns = namespace(n=0) %}
+    {% for t, qs in issue.questions|bytopic %}
+    <p style="margin:26px 0 4px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7a7368;">{{ topics[t] }}</p>
+    {% for q in qs %}{% set ns.n = ns.n + 1 %}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #efeae1;"><tr>
+      <td width="34" valign="top" style="padding:14px 0 14px;font:700 15px/1.5 Georgia,serif;color:#c2410c;">{{ "%02d"|format(ns.n) }}</td>
+      <td valign="top" style="padding:14px 0 14px;">
+        <p style="margin:0 0 6px;font-size:16px;line-height:1.5;font-weight:600;color:#1c1a17;">{{ q.text }}</p>
+        <p style="margin:0;font-size:12.5px;line-height:1.5;color:#7a7368;">
+          {% if q.difficulty %}<span style="color:{{ C.get(q.difficulty, '#7a7368') }};">&#9679;</span> {{ q.difficulty|capitalize }}{% endif %}
+          {% if q.fresh %}&nbsp;·&nbsp;<span style="color:#15803d;font-weight:700;">Asked this week</span>{% endif %}
+          &nbsp;·&nbsp;<a href="{{ q.source_url }}" style="color:#7a7368;text-decoration:underline;">{{ q|srclabel }}</a>
+        </p>
+        {% if q.hint %}<p style="margin:8px 0 0;padding:8px 12px;background:#f7f4ee;border-radius:8px;font-size:14px;line-height:1.55;color:#4a453d;"><b style="color:#1c1a17;">Cover:</b> {{ q.hint }}</p>{% endif %}
+      </td>
+    </tr></table>
+    {% endfor %}
+    {% endfor %}
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #efeae1;margin-top:4px;"><tr><td align="center" style="padding:26px 0 24px;">
+      <a href="{{ issue_url }}" style="display:inline-block;background:#c2410c;color:#ffffff;text-decoration:none;padding:13px 22px;border-radius:10px;font-size:15px;font-weight:600;">Practise on the web: hide hints, tick what you know</a>
+    </td></tr></table>
   </td></tr>
-  {% endif %}
-  {% set ns = namespace(topic=None) %}
-  {% for q in issue.questions %}
-  {% if q.topic != ns.topic %}{% set ns.topic = q.topic %}
-  <tr><td style="padding:22px 28px 2px;"><p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b665e;border-bottom:1px solid #e8e4dd;padding-bottom:6px;">{{ topics[q.topic] }}</p></td></tr>
-  {% endif %}
-  <tr><td style="padding:12px 28px 0;">
-    <p style="margin:0;font-size:16px;line-height:1.45;font-weight:600;"><span style="color:#b4572e;">{{ loop.index }}.</span> {{ q.text }}</p>
-    <p style="margin:4px 0 0;font-size:12px;color:#6b665e;">{{ q.difficulty }}{% if q.fresh %} · <span style="color:#2e7d4f;font-weight:700;">asked this week</span>{% endif %} · <a href="{{ q.source_url }}" style="color:#6b665e;">{{ q.source_name }}</a></p>
-    {% if q.hint %}<p style="margin:6px 0 0;font-size:14px;line-height:1.5;color:#4a463f;"><b>Cover:</b> {{ q.hint }}</p>{% endif %}
-  </td></tr>
-  {% endfor %}
-  <tr><td style="padding:28px;">
-    <a href="{{ site_url }}/issues/{{ issue.number }}.html" style="display:inline-block;background:#1f1d1a;color:#ffffff;text-decoration:none;padding:11px 18px;border-radius:6px;font-size:14px;font-weight:600;">Read on the web</a>
-  </td></tr>
-  <tr><td style="padding:0 28px 28px;font-size:12px;line-height:1.5;color:#8a857c;">
-    You're getting this because you subscribed at <a href="{{ site_url }}" style="color:#8a857c;">{{ site_url.split('//')[-1] }}</a>.
-    {% if preview %}<a href="#" style="color:#8a857c;">Unsubscribe</a>{% else %}<a href="{{ '{{' }} unsubscribe {{ '}}' }}" style="color:#8a857c;">Unsubscribe</a>{% endif %}
+
+  <!-- footer -->
+  <tr><td style="padding:20px 8px 0;font-size:12.5px;line-height:1.6;color:#8a8378;text-align:center;">
+    You're getting this because you subscribed at <a href="{{ site_url }}" style="color:#8a8378;">{{ site_url.split('//')[-1] }}</a>.<br>
+    New issues every Monday &amp; Thursday · <a href="{{ site_url }}/archive.html" style="color:#8a8378;">Past issues</a> ·
+    {% if preview %}<a href="#" style="color:#8a8378;">Unsubscribe</a>{% else %}<a href="{{ '{{' }} unsubscribe {{ '}}' }}" style="color:#8a8378;">Unsubscribe</a>{% endif %}
   </td></tr>
 </table>
 </td></tr>

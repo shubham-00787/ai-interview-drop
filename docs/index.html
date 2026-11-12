@@ -3,42 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The AI/ML Interview Drop</title>
+<title>The AI/ML Interview Drop: AI/ML engineer interview questions, twice a week</title>
 <meta name="description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta property="og:title" content="The AI/ML Interview Drop: AI/ML engineer interview questions, twice a week">
+<meta property="og:description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c2410c'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="index.html">The AI/ML Interview Drop</a>
-    <nav>
+    <a class="brand" href="index.html" aria-label="The AI/ML Interview Drop home">
+      <span class="mark" aria-hidden="true">?</span>
+      <span class="brand-name">The AI/ML Interview Drop</span>
+    </a>
+    <nav aria-label="Main">
       <a href="start.html">Start here</a>
       <a href="archive.html">Archive</a>
-      <a class="nav-sub" href="#subscribe">Subscribe</a>
+      <a class="btn btn-small" href="#subscribe">Subscribe</a>
     </nav>
   </div>
 </header>
-<main class="wrap">
+<main id="main">
 <section class="hero">
-  <h1 class="hero-title">The AI/ML Interview Drop</h1>
-  <p class="hero-sub">15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.</p>
-</section>
-<section class="subscribe" id="subscribe">
-  <h2>Get 15 new questions in your inbox every Monday &amp; Thursday</h2>
-  <p class="muted">Free. No spam. Unsubscribe with one click.</p>
-  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
-    <label class="sr" for="email-58">Email address</label>
-    <input id="email-58" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
-    <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <input type="hidden" name="locale" value="en">
-    <button type="submit">Subscribe</button>
-  </form>
+  <div class="wrap hero-inner">
+    <p class="pill"><span class="pulse" aria-hidden="true"></span> New issue every Monday &amp; Thursday</p>
+    <h1 class="hero-title">Hear the interview questions <em>before</em> the interview.</h1>
+    <p class="hero-sub">15 AI/ML engineer interview questions, twice a week. Collected from what engineers are posting right now, with a hint for each and one worked answer.</p>
+    <div class="hero-form" id="subscribe"><form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
+  <label class="sr" for="email-hero">Email address</label>
+  <input id="email-hero" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+  <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button class="btn" type="submit">Subscribe</button>
+</form>
+<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+</div>
+    <ul class="stats" aria-label="At a glance">
+      <li><strong>1,600+</strong><span>questions in the bank, deduplicated</span></li>
+      <li><strong>5 sources</strong><span>X, LinkedIn, Reddit, Hacker News, the web</span></li>
+      <li><strong>8 topics</strong><span>from fundamentals to RAG, agents and system design</span></li>
+    </ul>
+  </div>
 </section>
 
-<p class="muted">The first issue arrives on the next Monday or Thursday. Meanwhile, <a href="start.html">start here</a>.</p>
+<div class="wrap">
+  <section class="empty">
+    <h2>The first issue lands on the next Monday or Thursday</h2>
+    <p class="muted">Meanwhile, work through the <a href="start.html">15 essential questions</a> every candidate should be able to answer.</p>
+  </section>
+
+
+<section class="sub-card" id="subscribe-bottom" aria-labelledby="sub-h-bottom">
+  <div>
+    <h2 id="sub-h-bottom">Get the next 15 in your inbox</h2>
+    <p class="muted">Practising beats re-reading. Two short sets a week keeps you sharp without eating your evenings.</p>
+  </div>
+  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" target="_blank" class="sub-form">
+  <label class="sr" for="email-bottom">Email address</label>
+  <input id="email-bottom" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+  <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button class="btn" type="submit">Subscribe</button>
+</form>
+<p class="fine">Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+
+</section>
+
+</div>
 </main>
-<footer class="wrap foot">
-  <p>Questions are collected from public posts, forums and open-source question banks, then deduplicated and tagged automatically. Each one links to where it came from.</p>
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-brand"><span class="mark mark-sm" aria-hidden="true">?</span> The AI/ML Interview Drop</p>
+      <p class="muted">Questions are collected from public posts on X, LinkedIn, Reddit, Hacker News and the web, plus openly licensed question banks. They're deduplicated, tagged and balanced automatically, and each one links to its source.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="start.html">Start here</a>
+      <a href="archive.html">All issues</a>
+      <a href="https://github.com/shubham-00787/ai-interview-drop">Source code</a>
+    </nav>
+  </div>
 </footer>
+<script>
+(function () {
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { v ? localStorage.setItem(k, "1") : localStorage.removeItem(k); } catch (e) {} }
+  };
+  function refresh() {
+    document.querySelectorAll(".progress").forEach(function (p) {
+      var scope = p.parentElement, boxes = scope.querySelectorAll("[data-know]");
+      var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
+      var total = boxes.length || +p.dataset.total;
+      p.querySelector(".progress-n").textContent = n;
+      p.querySelector(".progress-bar span").style.width = (total ? (100 * n / total) : 0) + "%";
+      p.classList.toggle("done", total > 0 && n === total);
+    });
+  }
+  document.querySelectorAll("[data-know]").forEach(function (b) {
+    var key = "iqg-know-" + b.dataset.know;
+    b.checked = store.get(key) === "1";
+    b.closest(".q").classList.toggle("known", b.checked);
+    b.addEventListener("change", function () {
+      store.set(key, b.checked);
+      b.closest(".q").classList.toggle("known", b.checked);
+      refresh();
+    });
+  });
+  refresh();
+})();
+</script>
 </body>
 </html>

@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-{% from "_macros.html" import subscribe, issue_body %}
-{% block title %}#{{ issue.number }} · {{ name }}{% endblock %}
+{% from "_macros.html" import subscribe_card, issue_body, practice_script %}
+{% block title %}#{{ issue.number }}: {{ issue|title_of }} · {{ name }}{% endblock %}
 {% block body %}
-<article class="issue">{{ issue_body(issue, topics) }}</article>
-{{ subscribe(form_action, "Get the next issue by email", compact=True) }}
+<div class="wrap">
+  <p class="crumbs"><a href="../archive.html">← All issues</a></p>
+  <article class="issue">{{ issue_body(issue, topics) }}</article>
+  {{ subscribe_card(form_action, "Get the next issue by email", "15 new questions every Monday and Thursday. Free.", "issue") }}
+</div>
 {% endblock %}
+{% block scripts %}{{ practice_script() }}{% endblock %}

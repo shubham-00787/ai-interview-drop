@@ -13,9 +13,35 @@ env.filters["nicedate"] = lambda s: datetime.fromisoformat(s).strftime("%b %-d, 
 env.filters["paras"] = lambda s: [p.strip() for p in (s or "").split("\n") if p.strip()]
 
 
+def _srclabel(q):
+    name, url = q.get("source_name") or "", q.get("source_url") or ""
+    if "github.com" in url and "/" in name:
+        return "GitHub · " + name.split("/")[-1].replace("-", " ")
+    if name.startswith("r/"):
+        return "Reddit · " + name
+    return name.replace("www.", "")
+
+
+def _bytopic(questions):
+    """Group questions by topic, keeping the configured topic order."""
+    out = {}
+    for q in questions:
+        out.setdefault(q["topic"], []).append(q)
+    order = list(config.TOPICS)
+    return sorted(out.items(), key=lambda kv: order.index(kv[0]) if kv[0] in order else 99)
+
+
+env.filters["srclabel"] = _srclabel
+env.filters["bytopic"] = _bytopic
+env.filters["title_of"] = lambda i: i.get("title") or i["subject"].split(": ", 1)[-1]
+
+
+_STATS = {}
+
+
 def _ctx(**kw):
     return dict(name=config.NEWSLETTER_NAME, tagline=config.TAGLINE, site_url=config.SITE_URL,
-                form_action=config.SUBSCRIBE_FORM_ACTION, topics=config.TOPICS, **kw)
+                form_action=config.SUBSCRIBE_FORM_ACTION, topics=config.TOPICS, stats=_STATS, **kw)
 
 
 def email_html(issue, preview=False):
@@ -36,6 +62,9 @@ def starter_pack(bank, n=15):
 def build_site(extra_issue=None, out_dir=None):
     out = out_dir or config.SITE
     bank = Bank()
+    live = [q for q in bank.questions if not q["duplicate_of"]]
+    _STATS.update(bank=len(live), bank_round=f"{len(live) // 100 * 100:,}+",
+                  fresh=sum(1 for q in live if q["origin"] == "fresh"))
     issues = list(bank.issues) + ([extra_issue] if extra_issue else [])
     issues.sort(key=lambda i: i["number"], reverse=True)
     (out / "issues").mkdir(parents=True, exist_ok=True)
