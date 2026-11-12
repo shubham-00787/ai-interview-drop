@@ -21,16 +21,17 @@ jobs:
       REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
       FASTEMBED_CACHE_PATH: .fastembed_cache
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .fastembed_cache
           key: fastembed-bge-small-v1
       - run: pip install -r requirements.txt
+      - run: mkdir -p .fastembed_cache
       - name: Weekly re-read of the curated repos (Sundays)
         run: '[ "$(date -u +%u)" = "7" ] && python -m iqg seed || echo "not Sunday"'
       - run: python -m iqg collect
