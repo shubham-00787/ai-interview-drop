@@ -125,7 +125,7 @@ def write_hints(qs, deep_dive_id):
 For every question write "hint": 1-2 sentences (max 45 words) naming the key points a strong answer covers.
 Do not write the full answer.
 For the question with id "{deep_dive_id}" also write "deep_dive": a concise model answer (150-220 words,
-plain text with short paragraphs or "- " bullets, no headings) as a strong candidate would give it.
+plain text in 3-5 short paragraphs or "- " bullets, each on its own line separated by a blank line, no headings) as a strong candidate would give it.
 
 Return JSON: {{"hints": [{{"id": "...", "hint": "..."}}], "deep_dive": "..."}}
 
