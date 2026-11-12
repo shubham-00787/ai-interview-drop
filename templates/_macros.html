@@ -50,11 +50,14 @@
 </li>
 {% endmacro %}
 
-{% macro issue_body(issue, topics, heading_tag="h1") %}
+{% macro issue_body(issue, topics, heading_tag="h1", root="") %}
 <header class="issue-head">
   <p class="kicker">Issue #{{ issue.number }} · {{ issue.date|nicedate }} · {{ issue.questions|length }} questions</p>
   <{{ heading_tag }} class="issue-title">{{ issue|title_of }}</{{ heading_tag }}>
   <p class="lede">Answer each one out loud before opening the hint. Anything you can't explain clearly in two minutes goes on your study list.</p>
+  <p class="issue-actions"><a class="btn btn-ghost btn-small" href="{{ root }}pdf/issue-{{ issue.number }}.pdf" download>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+    Download PDF with hints</a></p>
   <nav class="jump" aria-label="Topics in this issue">
     {% for t, qs in issue.questions|bytopic %}<a href="#t-{{ issue.number }}-{{ t }}">{{ topics[t] }} <span>{{ qs|length }}</span></a>{% endfor %}
   </nav>

@@ -60,6 +60,9 @@ p { text-wrap: pretty; }
   transition: transform .12s ease, filter .12s ease; white-space: nowrap; }
 .btn:hover { filter: brightness(1.07); }
 .btn:active { transform: translateY(1px); }
+.btn-ghost { background: var(--surface); color: var(--text); border: 1px solid var(--line-2); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+.issue-actions { margin: 0 0 16px; }
 .btn-small { padding: 8px 14px; font-size: 14px; border-radius: 8px; }
 
 /* ---------- header ---------- */

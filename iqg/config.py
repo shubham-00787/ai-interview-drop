@@ -79,3 +79,6 @@ EMBED_MODEL = "BAAI/bge-small-en-v1.5"
 BREVO_LIST_ID = (os.getenv("BREVO_LIST_ID") or "")
 SENDER_NAME = (os.getenv("SENDER_NAME") or NEWSLETTER_NAME)
 SENDER_EMAIL = (os.getenv("SENDER_EMAIL") or "")
+# Attach the PDF to the email as well as linking it. Off by default: attachments in bulk email
+# make spam filtering more likely, especially without an authenticated sending domain.
+ATTACH_PDF = (os.getenv("ATTACH_PDF") or "").lower() in ("1", "true", "yes")

@@ -16,7 +16,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -25,15 +25,30 @@ jobs:
       SENDER_EMAIL: ${{ vars.SENDER_EMAIL }}
       SUBSCRIBE_FORM_ACTION: ${{ vars.SUBSCRIBE_FORM_ACTION }}
       SITE_URL: ${{ vars.SITE_URL }}
+      ATTACH_PDF: ${{ vars.ATTACH_PDF }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+      - name: PDF libraries
+        run: sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 >/dev/null
       - run: pip install -r requirements.txt
-      - run: python -m iqg publish ${{ inputs.dry_run && '--dry-run' || '' }}
-      - name: Commit the issue and the updated website
+
+      - name: Dry run
+        if: ${{ inputs.dry_run }}
+        run: python -m iqg publish --dry-run
+      - uses: actions/upload-artifact@v4
+        if: ${{ inputs.dry_run }}
+        with:
+          name: preview
+          path: preview
+
+      - name: Build the issue, its PDF and the website
+        if: ${{ !inputs.dry_run }}
+        run: python -m iqg publish --no-send
+      - name: Commit and publish to GitHub Pages
         if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "question-bot"
@@ -41,8 +56,23 @@ jobs:
           git add data docs
           git diff --cached --quiet || git commit -m "Publish issue $(date -u +%F)"
           git push
-      - uses: actions/upload-artifact@v4
-        if: ${{ inputs.dry_run }}
-        with:
-          name: preview
-          path: preview
+      - name: Wait until the PDF is live (so the email link works)
+        if: ${{ !inputs.dry_run }}
+        run: |
+          N=$(python -c "import json;print(json.load(open('data/issues.json'))[-1]['number'])")
+          URL="${SITE_URL:-https://shubham-00787.github.io/ai-interview-drop}/pdf/issue-$N.pdf"
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            [ "$code" = "200" ] && echo "live: $URL" && exit 0
+            sleep 15
+          done
+          echo "PDF not live after 10 minutes; sending anyway"
+      - name: Email subscribers
+        if: ${{ !inputs.dry_run }}
+        run: python -m iqg send-latest
+      - name: Record the campaign
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git add data
+          git diff --cached --quiet || git commit -m "Record email for latest issue"
+          git pull --rebase -q && git push

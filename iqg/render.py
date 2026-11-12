@@ -45,7 +45,26 @@ def _ctx(**kw):
 
 
 def email_html(issue, preview=False):
-    return env.get_template("email.html").render(**_ctx(issue=issue, preview=preview))
+    return env.get_template("email.html").render(**_ctx(issue=issue, preview=preview, pdf_url=pdf_url(issue)))
+
+
+def pdf_path(issue, out_dir=None):
+    return (out_dir or config.SITE) / "pdf" / f"issue-{issue['number']}.pdf"
+
+
+def pdf_url(issue):
+    return f"{config.SITE_URL}/pdf/issue-{issue['number']}.pdf"
+
+
+def build_pdf(issue, out_dir=None):
+    """Printable A4 study sheet for one issue (hints always shown, tick boxes, deep-dive answer)."""
+    from weasyprint import HTML
+    path = pdf_path(issue, out_dir)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    html = env.get_template("pdf.html").render(**_ctx(issue=issue))
+    HTML(string=html, base_url=str(config.ROOT)).write_pdf(path)
+    print(f"pdf: {path.relative_to(config.ROOT)} ({path.stat().st_size // 1024} KB)")
+    return path
 
 
 def starter_pack(bank, n=15):

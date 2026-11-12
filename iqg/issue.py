@@ -74,7 +74,7 @@ def _fallback_title(qs):
     return f"{', '.join(topics[:-1])} and {topics[-1]}" if len(topics) > 1 else topics[0]
 
 
-def publish(dry_run=False):
+def publish(dry_run=False, send_now=True):
     bank = Bank()
     number = len(bank.issues) + 1
     qs = select(bank, number)
@@ -101,22 +101,39 @@ def publish(dry_run=False):
         } for q in qs],
         "deep_dive": {"id": deep["id"], "text": deep["text"], "answer": deep_answer} if deep_answer else None,
     }
-    html = render.email_html(issue)
     if dry_run:
         out = config.ROOT / "preview"
         out.mkdir(exist_ok=True)
         (out / "email.html").write_text(render.email_html(issue, preview=True))
         (out / "issue.json").write_text(json.dumps(issue, indent=1, ensure_ascii=False))
         render.build_site(extra_issue=issue, out_dir=out / "site")
-        print(f"dry run: preview/email.html and preview/site/ written ({issue['subject']})")
+        render.build_pdf(issue, out_dir=out / "site")
+        print(f"dry run: preview/email.html, preview/site/ and the PDF written ({issue['subject']})")
         return issue
 
-    campaign = send.send_campaign(issue["subject"], html)
-    issue["campaign_id"] = campaign
+    issue["campaign_id"] = None
     for q in qs:
         q["sent_in"] = number
     bank.issues.append(issue)
     bank.save()
+    render.build_pdf(issue)
     render.build_site()
-    print(f"published issue #{number}: {issue['subject']}")
+    print(f"published issue #{number} to the site: {issue['subject']}")
+    if send_now:
+        send_latest()
     return issue
+
+
+def send_latest():
+    """Email the newest issue if it hasn't been emailed yet (run after the site + PDF are live)."""
+    bank = Bank()
+    if not bank.issues:
+        print("send: no issues yet")
+        return
+    issue = bank.issues[-1]
+    if issue.get("campaign_id"):
+        print(f"send: issue #{issue['number']} was already emailed (campaign {issue['campaign_id']})")
+        return
+    attach = render.pdf_url(issue) if config.ATTACH_PDF else None
+    issue["campaign_id"] = send.send_campaign(issue["subject"], render.email_html(issue), attachment_url=attach)
+    bank.save()

@@ -4,7 +4,7 @@
 {% block body %}
 <div class="wrap">
   <p class="crumbs"><a href="../archive.html">← All issues</a></p>
-  <article class="issue">{{ issue_body(issue, topics) }}</article>
+  <article class="issue">{{ issue_body(issue, topics, "h1", "../") }}</article>
   {{ subscribe_card(form_action, "Get the next issue by email", "15 new questions every Monday and Thursday. Free.", "issue") }}
 </div>
 {% endblock %}
