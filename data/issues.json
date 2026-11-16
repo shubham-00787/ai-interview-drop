@@ -172,5 +172,175 @@
    "answer": "We begin with an input token sequence of shape (batch_size, sequence_length), which passes through an embedding layer to yield tensor X of shape (batch_size, seq_len, d_model).\n\nNext, X enters the transformer block layers. Each layer applies RMSNorm or LayerNorm, followed by self-attention projections. We compute Query, Key, and Value tensors by multiplying X with weight matrices, reshaping to multi-head format (batch, heads, seq_len, d_head), applying causal masking, and computing scaled dot-product attention.\n\nThe attention output tensor is projected back to d_model, added to the original X via a residual connection, and normalized again. This tensor then passes through the feed-forward network, typically utilizing gated activations like SwiGLU, expanding hidden dimensions before projecting back to d_model.\n\nAfter passing through all stacked decoder layers, the final tensor is normalized and projected via the language model head weight matrix to produce logits of shape (batch_size, seq_len, vocab_size), predicting the next token probabilities."
   },
   "campaign_id": 5
+ },
+ {
+  "number": 2,
+  "date": "2026-11-16T14:33:29+00:00",
+  "title": "LLMs & Transformers, RAG & Agents and MLOps & Production",
+  "subject": "#2: LLMs & Transformers, RAG & Agents and MLOps & Production",
+  "topics": [
+   "coding",
+   "deep_learning",
+   "llms",
+   "ml_fundamentals",
+   "mlops",
+   "rag_agents",
+   "stats_math",
+   "system_design"
+  ],
+  "questions": [
+   {
+    "id": "6c89a20beab3",
+    "text": "Where does reinforcement learning fit on top of imitation learning for manipulation, and what makes the reward the hard part?",
+    "topic": "ml_fundamentals",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "b889cf939104",
+    "text": "Explain action chunking. Why predict a sequence of future actions instead of the next one?",
+    "topic": "deep_learning",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "83ee5588445d",
+    "text": "What is flow matching, and how is it different from diffusion models?",
+    "topic": "deep_learning",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": true
+   },
+   {
+    "id": "a7b609c32cd9",
+    "text": "What is chain-of-thought prompting? When does it help, and when is it unnecessary or harmful?",
+    "topic": "llms",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/03-prompt-engineering-and-context/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "31f26e47ffc2",
+    "text": "What problem do chat templates solve, and what goes wrong when they're ignored?",
+    "topic": "llms",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "d802e9a671a3",
+    "text": "When would you fine-tune instead of using RAG or prompt engineering, and if you do, LoRA or full fine-tuning?",
+    "topic": "llms",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": true
+   },
+   {
+    "id": "92adb8a8ed68",
+    "text": "How do you evaluate a RAG system end-to-end?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": true
+   },
+   {
+    "id": "69ccf764f19f",
+    "text": "How do you build a code execution agent safely using sandboxed environments?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "6b713b73b32f",
+    "text": "When should you choose RAG versus fine-tuning a language model?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://www.instagram.com/reel/Dfc0j0bpRy8",
+    "source_name": "instagram.com",
+    "fresh": true
+   },
+   {
+    "id": "93f9c5d4cc2d",
+    "text": "Estimate the GPU memory needed to serve a 70B model (weights, KV cache, activations). Does it fit on a single 80 GB GPU?",
+    "topic": "mlops",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": true
+   },
+   {
+    "id": "ee3763894157",
+    "text": "Your agent passes 92% of eval tasks. Why might that number be misleading, and what would you measure instead?",
+    "topic": "mlops",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "ea733f2aa968",
+    "text": "Compare tensor, pipeline, data, sequence and expert parallelism. When do you combine them?",
+    "topic": "mlops",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": true
+   },
+   {
+    "id": "2f3dcec87a61",
+    "text": "What is the primary (business) objective of the visual search system?",
+    "topic": "system_design",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/alirezadir/machine-learning-interviews/blob/HEAD/src/MLSD/mlsd-image-search.md",
+    "source_name": "alirezadir/machine-learning-interviews",
+    "fresh": false
+   },
+   {
+    "id": "18aa0a809621",
+    "text": "You want to detect a 3-point improvement in pass rate. How many eval examples do you need, and how do you get that number down?",
+    "topic": "stats_math",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/07-evaluation-and-observability/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "5ec80a7f69eb",
+    "text": "Build a rate limiter. Every ten minutes I add a requirement: per-tenant limits, burst allowances, then a sliding window. How do you keep the code from collapsing?",
+    "topic": "coding",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   }
+  ],
+  "deep_dive": null,
+  "campaign_id": null
  }
 ]
