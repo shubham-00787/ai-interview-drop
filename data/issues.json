@@ -342,5 +342,175 @@
   ],
   "deep_dive": null,
   "campaign_id": 6
+ },
+ {
+  "number": 3,
+  "date": "2026-11-19T15:07:07+00:00",
+  "title": "RAG & Agents, ML Fundamentals and LLMs & Transformers",
+  "subject": "#3: RAG & Agents, ML Fundamentals and LLMs & Transformers",
+  "topics": [
+   "coding",
+   "deep_learning",
+   "llms",
+   "ml_fundamentals",
+   "mlops",
+   "rag_agents",
+   "stats_math",
+   "system_design"
+  ],
+  "questions": [
+   {
+    "id": "865207663549",
+    "text": "Can you explain the bias-variance trade-off in machine learning?",
+    "topic": "ml_fundamentals",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/alirezadir/machine-learning-interviews/blob/HEAD/src/ml-fundamental.md",
+    "source_name": "alirezadir/machine-learning-interviews",
+    "fresh": true
+   },
+   {
+    "id": "eb72c2005ca5",
+    "text": "Compare L1 and L2 regularization. Why does L1 produce sparse weights?",
+    "topic": "ml_fundamentals",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/01-ml-and-dl-foundations/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": true
+   },
+   {
+    "id": "23fb1b2d8c32",
+    "text": "Your training loss decreases, but validation loss increases. What does this indicate?",
+    "topic": "deep_learning",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/ronak-k-2b1974214_deeplearning-aiengineer-dlinterview-activity-7526593143937523712-mc95",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "1072b18fa7f9",
+    "text": "Compare FP16, BF16, FP8, INT8, INT4, and FP4 formats for LLM serving, and explain what breaks or degrades at each step down in precision.",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "source_name": "github.com",
+    "fresh": true
+   },
+   {
+    "id": "e7da6bda2ad0",
+    "text": "Walk me through DeepSeekMoE. How is it different from a standard top-2 MoE like Mixtral?",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "05d0b6aabf5a",
+    "text": "Compare RAG vs fine-tuning. When would you use each?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": true
+   },
+   {
+    "id": "0d38125d8a26",
+    "text": "How do you design good tool/function definitions for an LLM? What makes tool calling fail?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/03-prompt-engineering-and-context/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "3fa81ec914c9",
+    "text": "How would you evaluate the quality of a RAG pipeline: retrieval and generation separately?",
+    "topic": "rag_agents",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": true
+   },
+   {
+    "id": "dc6451e35a73",
+    "text": "Your new model scores 87.2% on the test set, the incumbent scores 86.5%. Ship it?",
+    "topic": "mlops",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/01-ml-and-dl-foundations/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "e83e319fb92e",
+    "text": "An enterprise customer reports that responses from your deployed system have gotten slow. Walk me through the diagnosis.",
+    "topic": "mlops",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "source_name": "github.com",
+    "fresh": true
+   },
+   {
+    "id": "1f7db0b83e28",
+    "text": "WebRTC vs WebSocket for a voice agent: which would you use, and why?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "7de964fcb9f8",
+    "text": "Tell me about a time you talked a team out of using an LLM. What did you build instead?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/13-interview-process-and-behavioral/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "253a83e3f88d",
+    "text": "What is precision and recall at k?",
+    "topic": "stats_math",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/alexeygrigorev/data-science-interviews/blob/HEAD/theory.md",
+    "source_name": "alexeygrigorev/data-science-interviews",
+    "fresh": false
+   },
+   {
+    "id": "43ad6b3f9ce6",
+    "text": "What is a confidence interval, and how is it used?",
+    "topic": "stats_math",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "8c41510f4344",
+    "text": "Write Intersection over Union (IoU), Non-Maximum Suppression (NMS), and 2D convolution from scratch in Python.",
+    "topic": "coding",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/lamhotsiagian_you-should-never-walk-into-a-computer-vision-activity-7527014447329087489-dFIG",
+    "source_name": "LinkedIn",
+    "fresh": true
+   }
+  ],
+  "deep_dive": null,
+  "campaign_id": null
  }
 ]
