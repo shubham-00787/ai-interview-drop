@@ -512,5 +512,175 @@
   ],
   "deep_dive": null,
   "campaign_id": 7
+ },
+ {
+  "number": 4,
+  "date": "2026-11-23T17:07:23+00:00",
+  "title": "Deep Learning, LLMs & Transformers and RAG & Agents",
+  "subject": "#4: Deep Learning, LLMs & Transformers and RAG & Agents",
+  "topics": [
+   "coding",
+   "deep_learning",
+   "llms",
+   "ml_fundamentals",
+   "mlops",
+   "rag_agents",
+   "stats_math",
+   "system_design"
+  ],
+  "questions": [
+   {
+    "id": "de3b2fa66ccb",
+    "text": "A whole-body controller trained entirely in simulation has to run on real hardware. What transfers, what does not, and how do you close the gap?",
+    "topic": "ml_fundamentals",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   },
+   {
+    "id": "07b40f065136",
+    "text": "How would you handle an imbalanced image classification dataset?",
+    "topic": "deep_learning",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/ronak-k-2b1974214_deeplearning-aiengineer-dlinterview-activity-7526593143937523712-mc95",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "ed2f70303fee",
+    "text": "What is model quantization (INT8, INT4, FP16, BF16), and how does it affect quality?",
+    "topic": "deep_learning",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "3112ffdab014",
+    "text": "How are GANs used in image synthesis or image-to-image translation tasks?",
+    "topic": "deep_learning",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "fd252c5dd823",
+    "text": "What is LLM-as-judge, and when is it the right tool?",
+    "topic": "llms",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/07-evaluation-and-observability/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "5781d52cdf7b",
+    "text": "What are the differences between bi-encoders and cross-encoders in information retrieval?",
+    "topic": "llms",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/ketan-sagare-15b4a9157_ey-interview-experience-senior-machine-learning-activity-7524412656112545792-jDAj",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "a605d5725312",
+    "text": "Explain the prefill and decode phases in LLM inference, and explain why prefill is compute-bound while decode is memory-bandwidth-bound.",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://x.com/amitiitbhu/status/2121224196055593086",
+    "source_name": "X",
+    "fresh": true
+   },
+   {
+    "id": "7b2d7805eed0",
+    "text": "What is context pollution in agents, and how do you deal with it?",
+    "topic": "rag_agents",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/06-agents-and-tool-use/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "da72e1c6d543",
+    "text": "Your RAG application retrieves a related but incorrect document. How would you identify and fix the retrieval problem?",
+    "topic": "rag_agents",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/bharath-reddy-35a405195_one-of-my-friends-got-rejected-after-the-activity-7526105199170629632-ixwz",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "cab2a92b1808",
+    "text": "Your RAG system retrieves the correct documents, but still generates incorrect answers. What would you investigate?",
+    "topic": "rag_agents",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://www.linkedin.com/posts/bharath-reddy-35a405195_he-prepared-500-ai-engineer-interview-questions-activity-7527192342798360576-0cHM",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "08e9923981fd",
+    "text": "What is LLMOps, and how does it differ from traditional MLOps?",
+    "topic": "mlops",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "e3a165c2c8a4",
+    "text": "Why do output tokens cost more than input tokens, and how should that shape how you build?",
+    "topic": "mlops",
+    "difficulty": "easy",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/08-inference-and-production/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": true
+   },
+   {
+    "id": "5275c5287517",
+    "text": "What are the cost trade-offs between self-hosted and API-based AI inference?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "d49650d809bc",
+    "text": "Derive cross-entropy loss from first principles. Why is it \"the right\" loss for classification and language modeling?",
+    "topic": "stats_math",
+    "difficulty": "hard",
+    "hint": "",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/01-ml-and-dl-foundations/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "e0b043da5170",
+    "text": "A user loads a 2 TB dataset with datasets on a 64 GB RAM machine and it works. How? And when does it stop working?",
+    "topic": "coding",
+    "difficulty": "medium",
+    "hint": "",
+    "source_url": "https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md",
+    "source_name": "pallavi-shekhar/ai-engineering-interview-questions-company-wise",
+    "fresh": false
+   }
+  ],
+  "deep_dive": null,
+  "campaign_id": null
  }
 ]
