@@ -855,6 +855,6 @@
    "text": "How do you make a long-running agentic workflow resilient so it can resume after a crash?",
    "answer": "Making long-running agentic workflows resilient requires shifting from stateless request-response patterns to durable state management. The core principle is treating the agent's entire execution graph as a transactional state machine where every step is checkpointed.\n\nFirst, I implement a durable execution framework like Temporal or AWS Step Functions. Each agentic turn, tool invocation, and thought cycle is recorded as an immutable event in an external log. If a node crashes or the API times out, the orchestrator replays the event history up to the last successful checkpoint instead of restarting from scratch.\n\nSecond, external side effects must be handled carefully. Tool calls such as sending emails or executing database writes must be idempotent. I assign unique transaction IDs to every action so that if a workflow retries after a failure, the external system ignores duplicate requests.\n\nFinally, agent memory and context windows must be externalized. Rather than keeping working memory in ephemeral RAM, I persist conversation histories, intermediate reasoning steps, and scratchpads into a durable database or vector store alongside the workflow state. This ensures seamless resumption across infrastructure failures."
   },
-  "campaign_id": null
+  "campaign_id": 9
  }
 ]
