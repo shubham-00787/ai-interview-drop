@@ -682,5 +682,179 @@
   ],
   "deep_dive": null,
   "campaign_id": 8
+ },
+ {
+  "number": 5,
+  "date": "2026-11-26T16:11:12+00:00",
+  "title": "Agentic resilience, LLM inference parallelism and bias audit",
+  "subject": "#5: Agentic resilience, LLM inference parallelism and bias audit",
+  "topics": [
+   "coding",
+   "deep_learning",
+   "llms",
+   "ml_fundamentals",
+   "mlops",
+   "rag_agents",
+   "stats_math",
+   "system_design"
+  ],
+  "questions": [
+   {
+    "id": "047ad86f602c",
+    "text": "Your resume screening AI rejects more female candidates for engineering roles. How do you fix gender bias?",
+    "topic": "ml_fundamentals",
+    "difficulty": "medium",
+    "hint": "Mention auditing training data for proxy variables, removing gender-identifying features, applying adversarial debiasing, and continuously monitoring disparate impact metrics across demographic groups.",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "f16f68fa6908",
+    "text": "What if we set all the weights of a neural network to 0?",
+    "topic": "deep_learning",
+    "difficulty": "easy",
+    "hint": "Explain that all neurons output identical values, leading to symmetric gradients during backpropagation. This prevents the network from breaking symmetry and learning diverse feature representations.",
+    "source_url": "https://github.com/alexeygrigorev/data-science-interviews/blob/HEAD/theory.md",
+    "source_name": "alexeygrigorev/data-science-interviews",
+    "fresh": false
+   },
+   {
+    "id": "a94335e25c3f",
+    "text": "Explain Prefix Tuning and Prompt Tuning. How are they different from LoRA?",
+    "topic": "llms",
+    "difficulty": "medium",
+    "hint": "Discuss how prompt and prefix tuning prepend trainable vectors to the input or layers, while LoRA injects low-rank trainable matrices into transformer attention weights.",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "0d8d58366dbf",
+    "text": "Your AI assistant processes long conversations and eventually loses important context. How would you design an effective memory management system?",
+    "topic": "llms",
+    "difficulty": "hard",
+    "hint": "Suggest implementing a hybrid memory architecture combining sliding-window short-term context, vector database retrieval for long-term facts, and periodic summarization.",
+    "source_url": "https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "7098e1bb9212",
+    "text": "What is an AI agent, and how does it differ from a simple LLM call?",
+    "topic": "rag_agents",
+    "difficulty": "easy",
+    "hint": "Define agents by their ability to perceive environments, maintain state, use tools, and autonomously plan multi-step actions to achieve goals, unlike stateless LLM calls.",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": true
+   },
+   {
+    "id": "43bfe3502f07",
+    "text": "How do you make a long-running agentic workflow resilient so it can resume after a crash?",
+    "topic": "rag_agents",
+    "difficulty": "hard",
+    "hint": "Focus on state persistence via durable execution frameworks, event sourcing, idempotency keys for external API calls, and checkpointing agent memory after each step.",
+    "source_url": "https://www.linkedin.com/posts/mahmoodsalah_ai-engineer-interview-this-week-practice-activity-7527754872629366784-YugT",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "3c0f345b5a7d",
+    "text": "You're doing a security review of a coding agent that executes model-generated code. What's your threat model and controls?",
+    "topic": "rag_agents",
+    "difficulty": "hard",
+    "hint": "Highlight threat vectors like remote code execution and data exfiltration. Recommend strict containerization, network sandboxing, least-privilege execution, and output validation.",
+    "source_url": "https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/09-safety-security-and-responsible-ai/questions.md",
+    "source_name": "ombharatiya/AI-Engineer-Interview-Questions",
+    "fresh": false
+   },
+   {
+    "id": "d7f3b51a138c",
+    "text": "Your AI voice assistant takes 5-8 seconds to respond. How would you bring the response time below 1 second?",
+    "topic": "mlops",
+    "difficulty": "hard",
+    "hint": "Propose streaming tokens, using smaller cascaded models for intent routing, speculative decoding, and concurrent asynchronous execution of tools.",
+    "source_url": "https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "43ca5134e3b5",
+    "text": "What are the common parallelism strategies used for LLM inference in production across multiple GPUs?",
+    "topic": "mlops",
+    "difficulty": "hard",
+    "hint": "Cover tensor parallelism for splitting individual layers across GPUs, pipeline parallelism for sequential layers, and data parallelism for batch throughput.",
+    "source_url": "https://x.com/DailyDoseOfDS_/status/2123083871986294929/video/1",
+    "source_name": "X",
+    "fresh": true
+   },
+   {
+    "id": "4f9427da489d",
+    "text": "When building an automated workflow, how do you decide whether to use an AI agent versus a simple deterministic Python function and an API call?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "Advocate deterministic code for rigid, rule-based logic with zero error tolerance, reserving agents for tasks requiring dynamic reasoning, ambiguity resolution, and tool orchestration.",
+    "source_url": "https://www.linkedin.com/posts/naresh-edagotti-6a71a1233_practicai-activity-7526105231588323328-UWMu",
+    "source_name": "LinkedIn",
+    "fresh": true
+   },
+   {
+    "id": "4c40fee12157",
+    "text": "Your PM wants to ship an AI feature with a 15% hallucination rate on edge cases. How do you communicate the risk?",
+    "topic": "system_design",
+    "difficulty": "medium",
+    "hint": "Translate the 15% error rate into business impact, user trust loss, and liability. Propose guardrails, human-in-the-loop validation, or scoping the feature to lower-risk domains.",
+    "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/ai-engineering-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "73b6a909eae6",
+    "text": "What is the Bernoulli distribution?",
+    "topic": "stats_math",
+    "difficulty": "easy",
+    "hint": "Describe it as a discrete probability distribution for a binary outcome trial, parameterized by the probability of success 'p'.",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "c67c6d01bc51",
+    "text": "What is the difference between correlation and covariance?",
+    "topic": "stats_math",
+    "difficulty": "easy",
+    "hint": "Explain that covariance measures the directional relationship between two variables and depends on their scale, whereas correlation normalizes covariance by the product of their standard deviations.",
+    "source_url": "https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md",
+    "source_name": "amitshekhariitbhu/machine-learning-interview-questions",
+    "fresh": false
+   },
+   {
+    "id": "2d2158482320",
+    "text": "Implement an LRU (Least Recently Used) Cache.",
+    "topic": "coding",
+    "difficulty": "medium",
+    "hint": "Combine a hash map for O(1) lookups with a doubly linked list to track recency order and efficiently evict items upon capacity limits.",
+    "source_url": "https://www.tryexponent.com/experiences/tiktok-ai-engineer-intern-interview-350013",
+    "source_name": "tryexponent.com",
+    "fresh": true
+   },
+   {
+    "id": "73da967dfe47",
+    "text": "Implement a function to find the longest substring without repeating characters.",
+    "topic": "coding",
+    "difficulty": "medium",
+    "hint": "Use a sliding window approach with a hash set or map to track character indices, expanding the right boundary and shrinking the left upon duplicates.",
+    "source_url": "https://www.linkedin.com/posts/resnur-ai_resnur-ai-platform-for-learning-building-activity-7527322622368444416-sF_6",
+    "source_name": "LinkedIn",
+    "fresh": true
+   }
+  ],
+  "deep_dive": {
+   "id": "43bfe3502f07",
+   "text": "How do you make a long-running agentic workflow resilient so it can resume after a crash?",
+   "answer": "Making long-running agentic workflows resilient requires shifting from stateless request-response patterns to durable state management. The core principle is treating the agent's entire execution graph as a transactional state machine where every step is checkpointed.\n\nFirst, I implement a durable execution framework like Temporal or AWS Step Functions. Each agentic turn, tool invocation, and thought cycle is recorded as an immutable event in an external log. If a node crashes or the API times out, the orchestrator replays the event history up to the last successful checkpoint instead of restarting from scratch.\n\nSecond, external side effects must be handled carefully. Tool calls such as sending emails or executing database writes must be idempotent. I assign unique transaction IDs to every action so that if a workflow retries after a failure, the external system ignores duplicate requests.\n\nFinally, agent memory and context windows must be externalized. Rather than keeping working memory in ephemeral RAM, I persist conversation histories, intermediate reasoning steps, and scratchpads into a durable database or vector store alongside the workflow state. This ensures seamless resumption across infrastructure failures."
+  },
+  "campaign_id": null
  }
 ]

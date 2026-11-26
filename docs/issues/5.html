@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>#5: Agentic resilience, LLM inference parallelism and bias audit · The AI/ML Interview Drop</title>
+<meta name="description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta property="og:title" content="#5: Agentic resilience, LLM inference parallelism and bias audit · The AI/ML Interview Drop">
+<meta property="og:description" content="15 AI/ML engineer interview questions, twice a week. Collected from what practitioners are asking right now.">
+<meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c2410c'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="../index.html" aria-label="The AI/ML Interview Drop home">
+      <span class="mark" aria-hidden="true">?</span>
+      <span class="brand-name">The AI/ML Interview Drop</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="../start.html">Start here</a>
+      <a href="../archive.html">Archive</a>
+      <a class="btn btn-small" href="#subscribe">Subscribe</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <p class="crumbs"><a href="../archive.html">← All issues</a></p>
+  <article class="issue"><header class="issue-head">
+  <p class="kicker">Issue #5 · Nov 26, 2026 · 15 questions</p>
+  <h1 class="issue-title">Agentic resilience, LLM inference parallelism and bias audit</h1>
+  <p class="lede">Answer each one out loud before opening the hint. Anything you can't explain clearly in two minutes goes on your study list.</p>
+  <p class="issue-actions"><a class="btn btn-ghost btn-small" href="../pdf/issue-5.pdf" download>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+    Download PDF with hints</a></p>
+  <nav class="jump" aria-label="Topics in this issue">
+<a href="#t-5-ml_fundamentals">ML Fundamentals <span>1</span></a><a href="#t-5-deep_learning">Deep Learning <span>1</span></a><a href="#t-5-llms">LLMs &amp; Transformers <span>2</span></a><a href="#t-5-rag_agents">RAG &amp; Agents <span>3</span></a><a href="#t-5-mlops">MLOps &amp; Production <span>2</span></a><a href="#t-5-system_design">ML / AI System Design <span>2</span></a><a href="#t-5-stats_math">Stats &amp; Math <span>2</span></a><a href="#t-5-coding">Coding &amp; Implementation <span>2</span></a>  </nav>
+</header>
+
+<div class="progress" data-total="15" aria-live="polite">
+  <div class="progress-bar"><span style="width:0%"></span></div>
+  <p><strong class="progress-n">0</strong> of 15 you can answer</p>
+</div>
+
+<section class="deep" aria-labelledby="deep-5">
+  <p class="kicker">Deep dive</p>
+  <h2 id="deep-5">How do you make a long-running agentic workflow resilient so it can resume after a crash?</h2>
+  <details class="deep-answer"><summary>Try it first, then read a model answer</summary>
+<p>Making long-running agentic workflows resilient requires shifting from stateless request-response patterns to durable state management. The core principle is treating the agent&#39;s entire execution graph as a transactional state machine where every step is checkpointed.</p><p>First, I implement a durable execution framework like Temporal or AWS Step Functions. Each agentic turn, tool invocation, and thought cycle is recorded as an immutable event in an external log. If a node crashes or the API times out, the orchestrator replays the event history up to the last successful checkpoint instead of restarting from scratch.</p><p>Second, external side effects must be handled carefully. Tool calls such as sending emails or executing database writes must be idempotent. I assign unique transaction IDs to every action so that if a workflow retries after a failure, the external system ignores duplicate requests.</p><p>Finally, agent memory and context windows must be externalized. Rather than keeping working memory in ephemeral RAM, I persist conversation histories, intermediate reasoning steps, and scratchpads into a durable database or vector store alongside the workflow state. This ensures seamless resumption across infrastructure failures.</p>  </details>
+</section>
+
+<section class="topic" id="t-5-ml_fundamentals">
+  <h2 class="topic-h">ML Fundamentals</h2>
+  <ol class="qs">
+<li class="q" id="q-047ad86f602c" data-qid="047ad86f602c">
+  <span class="q-num" aria-hidden="true">01</span>
+  <div class="q-body">
+    <p class="q-text">Your resume screening AI rejects more female candidates for engineering roles. How do you fix gender bias?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Mention auditing training data for proxy variables, removing gender-identifying features, applying adversarial debiasing, and continuously monitoring disparate impact metrics across demographic groups.</p></details>
+      <label class="know"><input type="checkbox" data-know="047ad86f602c"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-deep_learning">
+  <h2 class="topic-h">Deep Learning</h2>
+  <ol class="qs">
+<li class="q" id="q-f16f68fa6908" data-qid="f16f68fa6908">
+  <span class="q-num" aria-hidden="true">02</span>
+  <div class="q-body">
+    <p class="q-text">What if we set all the weights of a neural network to 0?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/alexeygrigorev/data-science-interviews/blob/HEAD/theory.md" rel="noopener" target="_blank">via GitHub · data science interviews</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explain that all neurons output identical values, leading to symmetric gradients during backpropagation. This prevents the network from breaking symmetry and learning diverse feature representations.</p></details>
+      <label class="know"><input type="checkbox" data-know="f16f68fa6908"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-llms">
+  <h2 class="topic-h">LLMs &amp; Transformers</h2>
+  <ol class="qs">
+<li class="q" id="q-a94335e25c3f" data-qid="a94335e25c3f">
+  <span class="q-num" aria-hidden="true">03</span>
+  <div class="q-body">
+    <p class="q-text">Explain Prefix Tuning and Prompt Tuning. How are they different from LoRA?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Discuss how prompt and prefix tuning prepend trainable vectors to the input or layers, while LoRA injects low-rank trainable matrices into transformer attention weights.</p></details>
+      <label class="know"><input type="checkbox" data-know="a94335e25c3f"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-0d8d58366dbf" data-qid="0d8d58366dbf">
+  <span class="q-num" aria-hidden="true">04</span>
+  <div class="q-body">
+    <p class="q-text">Your AI assistant processes long conversations and eventually loses important context. How would you design an effective memory management system?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Suggest implementing a hybrid memory architecture combining sliding-window short-term context, vector database retrieval for long-term facts, and periodic summarization.</p></details>
+      <label class="know"><input type="checkbox" data-know="0d8d58366dbf"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-rag_agents">
+  <h2 class="topic-h">RAG &amp; Agents</h2>
+  <ol class="qs">
+<li class="q" id="q-7098e1bb9212" data-qid="7098e1bb9212">
+  <span class="q-num" aria-hidden="true">05</span>
+  <div class="q-body">
+    <p class="q-text">What is an AI agent, and how does it differ from a simple LLM call?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Define agents by their ability to perceive environments, maintain state, use tools, and autonomously plan multi-step actions to achieve goals, unlike stateless LLM calls.</p></details>
+      <label class="know"><input type="checkbox" data-know="7098e1bb9212"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-43bfe3502f07" data-qid="43bfe3502f07">
+  <span class="q-num" aria-hidden="true">06</span>
+  <div class="q-body">
+    <p class="q-text">How do you make a long-running agentic workflow resilient so it can resume after a crash?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/mahmoodsalah_ai-engineer-interview-this-week-practice-activity-7527754872629366784-YugT" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Focus on state persistence via durable execution frameworks, event sourcing, idempotency keys for external API calls, and checkpointing agent memory after each step.</p></details>
+      <label class="know"><input type="checkbox" data-know="43bfe3502f07"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-3c0f345b5a7d" data-qid="3c0f345b5a7d">
+  <span class="q-num" aria-hidden="true">07</span>
+  <div class="q-body">
+    <p class="q-text">You&#39;re doing a security review of a coding agent that executes model-generated code. What&#39;s your threat model and controls?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/09-safety-security-and-responsible-ai/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Highlight threat vectors like remote code execution and data exfiltration. Recommend strict containerization, network sandboxing, least-privilege execution, and output validation.</p></details>
+      <label class="know"><input type="checkbox" data-know="3c0f345b5a7d"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-mlops">
+  <h2 class="topic-h">MLOps &amp; Production</h2>
+  <ol class="qs">
+<li class="q" id="q-d7f3b51a138c" data-qid="d7f3b51a138c">
+  <span class="q-num" aria-hidden="true">08</span>
+  <div class="q-body">
+    <p class="q-text">Your AI voice assistant takes 5-8 seconds to respond. How would you bring the response time below 1 second?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Propose streaming tokens, using smaller cascaded models for intent routing, speculative decoding, and concurrent asynchronous execution of tools.</p></details>
+      <label class="know"><input type="checkbox" data-know="d7f3b51a138c"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-43ca5134e3b5" data-qid="43ca5134e3b5">
+  <span class="q-num" aria-hidden="true">09</span>
+  <div class="q-body">
+    <p class="q-text">What are the common parallelism strategies used for LLM inference in production across multiple GPUs?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://x.com/DailyDoseOfDS_/status/2123083871986294929/video/1" rel="noopener" target="_blank">via X</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Cover tensor parallelism for splitting individual layers across GPUs, pipeline parallelism for sequential layers, and data parallelism for batch throughput.</p></details>
+      <label class="know"><input type="checkbox" data-know="43ca5134e3b5"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-system_design">
+  <h2 class="topic-h">ML / AI System Design</h2>
+  <ol class="qs">
+<li class="q" id="q-4f9427da489d" data-qid="4f9427da489d">
+  <span class="q-num" aria-hidden="true">10</span>
+  <div class="q-body">
+    <p class="q-text">When building an automated workflow, how do you decide whether to use an AI agent versus a simple deterministic Python function and an API call?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/naresh-edagotti-6a71a1233_practicai-activity-7526105231588323328-UWMu" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Advocate deterministic code for rigid, rule-based logic with zero error tolerance, reserving agents for tasks requiring dynamic reasoning, ambiguity resolution, and tool orchestration.</p></details>
+      <label class="know"><input type="checkbox" data-know="4f9427da489d"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-4c40fee12157" data-qid="4c40fee12157">
+  <span class="q-num" aria-hidden="true">11</span>
+  <div class="q-body">
+    <p class="q-text">Your PM wants to ship an AI feature with a 15% hallucination rate on edge cases. How do you communicate the risk?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Translate the 15% error rate into business impact, user trust loss, and liability. Propose guardrails, human-in-the-loop validation, or scoping the feature to lower-risk domains.</p></details>
+      <label class="know"><input type="checkbox" data-know="4c40fee12157"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-stats_math">
+  <h2 class="topic-h">Stats &amp; Math</h2>
+  <ol class="qs">
+<li class="q" id="q-73b6a909eae6" data-qid="73b6a909eae6">
+  <span class="q-num" aria-hidden="true">12</span>
+  <div class="q-body">
+    <p class="q-text">What is the Bernoulli distribution?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · machine learning interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Describe it as a discrete probability distribution for a binary outcome trial, parameterized by the probability of success &#39;p&#39;.</p></details>
+      <label class="know"><input type="checkbox" data-know="73b6a909eae6"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-c67c6d01bc51" data-qid="c67c6d01bc51">
+  <span class="q-num" aria-hidden="true">13</span>
+  <div class="q-body">
+    <p class="q-text">What is the difference between correlation and covariance?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · machine learning interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explain that covariance measures the directional relationship between two variables and depends on their scale, whereas correlation normalizes covariance by the product of their standard deviations.</p></details>
+      <label class="know"><input type="checkbox" data-know="c67c6d01bc51"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-coding">
+  <h2 class="topic-h">Coding &amp; Implementation</h2>
+  <ol class="qs">
+<li class="q" id="q-2d2158482320" data-qid="2d2158482320">
+  <span class="q-num" aria-hidden="true">14</span>
+  <div class="q-body">
+    <p class="q-text">Implement an LRU (Least Recently Used) Cache.</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.tryexponent.com/experiences/tiktok-ai-engineer-intern-interview-350013" rel="noopener" target="_blank">via tryexponent.com</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Combine a hash map for O(1) lookups with a doubly linked list to track recency order and efficiently evict items upon capacity limits.</p></details>
+      <label class="know"><input type="checkbox" data-know="2d2158482320"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-73da967dfe47" data-qid="73da967dfe47">
+  <span class="q-num" aria-hidden="true">15</span>
+  <div class="q-body">
+    <p class="q-text">Implement a function to find the longest substring without repeating characters.</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/resnur-ai_resnur-ai-platform-for-learning-building-activity-7527322622368444416-sF_6" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Use a sliding window approach with a hash set or map to track character indices, expanding the right boundary and shrinking the left upon duplicates.</p></details>
+      <label class="know"><input type="checkbox" data-know="73da967dfe47"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+</article>
+  <section class="sub-card" id="subscribe" aria-labelledby="sub-h-issue">
+  <div>
+    <h2 id="sub-h-issue">Get the next issue by email</h2>
+    <p class="muted">15 new questions every Monday and Thursday. Free.</p>
+  </div>
+  <form method="post" action="https://e5298aa8.sibforms.com/serve/MUIFAF0DR-HmQNP0c18nXDflDdPlE2h8rOAduswe7yd6AswLJtIeSpS-MauCWb3S0YVXYV9jI9Gukg7EWo8Ju4ciu3JrHc4v8_c3qO2qT9diUQw2mxArp2nuclPHGQoD-t0diT06drFkU3jRjgDJUbgLj6iH5fAWMwZCu4xsWy9APIqZoYDCCS-_0cdUTYqzws6zIVqDhOnytJum-g==" class="sub-form" data-sub>
+  <label class="sr" for="email-issue">Email address</label>
+  <input id="email-issue" type="email" name="EMAIL" placeholder="you@example.com" required autocomplete="email">
+  <input type="text" name="email_address_check" value="" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button class="btn" type="submit">Subscribe</button>
+</form>
+<p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
+
+</section>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div>
+      <p class="foot-brand"><span class="mark mark-sm" aria-hidden="true">?</span> The AI/ML Interview Drop</p>
+      <p class="muted">Questions are collected from public posts on X, LinkedIn, Reddit, Hacker News and the web, plus openly licensed question banks. They're deduplicated, tagged and balanced automatically, and each one links to its source.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="../start.html">Start here</a>
+      <a href="../archive.html">All issues</a>
+      <a href="https://github.com/shubham-00787/ai-interview-drop">Source code</a>
+    </nav>
+  </div>
+</footer>
+<script>
+document.querySelectorAll("form[data-sub]").forEach(function (f) {
+  f.addEventListener("submit", function (e) {
+    if (!window.fetch || !window.FormData) return;           // old browsers: normal form post
+    e.preventDefault();
+    var btn = f.querySelector("button"), msg = f.parentElement.querySelector("[data-sub-msg]");
+    btn.disabled = true; btn.textContent = "Subscribing…";
+    fetch(f.action, { method: "POST", body: new FormData(f), mode: "no-cors" })
+      .then(function () {
+        f.classList.add("sub-done");
+        f.innerHTML = '<p class="sub-ok" role="status">You\u2019re in! The next issue arrives Monday or Thursday.</p>';
+        if (msg) msg.textContent = "Tip: if it lands in spam, mark it \u201cNot spam\u201d so future issues reach your inbox.";
+      })
+      .catch(function () { f.submit(); });                    // network trouble: fall back to normal post
+  });
+});
+</script>
+<script>
+(function () {
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { v ? localStorage.setItem(k, "1") : localStorage.removeItem(k); } catch (e) {} }
+  };
+  function refresh() {
+    document.querySelectorAll(".progress").forEach(function (p) {
+      var scope = p.parentElement, boxes = scope.querySelectorAll("[data-know]");
+      var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
+      var total = boxes.length || +p.dataset.total;
+      p.querySelector(".progress-n").textContent = n;
+      p.querySelector(".progress-bar span").style.width = (total ? (100 * n / total) : 0) + "%";
+      p.classList.toggle("done", total > 0 && n === total);
+    });
+  }
+  document.querySelectorAll("[data-know]").forEach(function (b) {
+    var key = "iqg-know-" + b.dataset.know;
+    b.checked = store.get(key) === "1";
+    b.closest(".q").classList.toggle("known", b.checked);
+    b.addEventListener("change", function () {
+      store.set(key, b.checked);
+      b.closest(".q").classList.toggle("known", b.checked);
+      refresh();
+    });
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>

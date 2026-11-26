@@ -46,7 +46,7 @@
 <p class="fine" data-sub-msg>Free · Mondays &amp; Thursdays · Unsubscribe in one click</p>
 </div>
     <ul class="stats" aria-label="At a glance">
-      <li><strong>1,800+</strong><span>questions in the bank, deduplicated</span></li>
+      <li><strong>1,900+</strong><span>questions in the bank, deduplicated</span></li>
       <li><strong>5 sources</strong><span>X, LinkedIn, Reddit, Hacker News, the web</span></li>
       <li><strong>8 topics</strong><span>from fundamentals to RAG, agents and system design</span></li>
     </ul>
@@ -56,14 +56,14 @@
 <div class="wrap">
   <p class="section-label">Latest issue</p>
   <article class="issue"><header class="issue-head">
-  <p class="kicker">Issue #4 · Nov 23, 2026 · 15 questions</p>
-  <h2 class="issue-title">Deep Learning, LLMs &amp; Transformers and RAG &amp; Agents</h2>
+  <p class="kicker">Issue #5 · Nov 26, 2026 · 15 questions</p>
+  <h2 class="issue-title">Agentic resilience, LLM inference parallelism and bias audit</h2>
   <p class="lede">Answer each one out loud before opening the hint. Anything you can't explain clearly in two minutes goes on your study list.</p>
-  <p class="issue-actions"><a class="btn btn-ghost btn-small" href="pdf/issue-4.pdf" download>
+  <p class="issue-actions"><a class="btn btn-ghost btn-small" href="pdf/issue-5.pdf" download>
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
     Download PDF with hints</a></p>
   <nav class="jump" aria-label="Topics in this issue">
-<a href="#t-4-ml_fundamentals">ML Fundamentals <span>1</span></a><a href="#t-4-deep_learning">Deep Learning <span>3</span></a><a href="#t-4-llms">LLMs &amp; Transformers <span>3</span></a><a href="#t-4-rag_agents">RAG &amp; Agents <span>3</span></a><a href="#t-4-mlops">MLOps &amp; Production <span>2</span></a><a href="#t-4-system_design">ML / AI System Design <span>1</span></a><a href="#t-4-stats_math">Stats &amp; Math <span>1</span></a><a href="#t-4-coding">Coding &amp; Implementation <span>1</span></a>  </nav>
+<a href="#t-5-ml_fundamentals">ML Fundamentals <span>1</span></a><a href="#t-5-deep_learning">Deep Learning <span>1</span></a><a href="#t-5-llms">LLMs &amp; Transformers <span>2</span></a><a href="#t-5-rag_agents">RAG &amp; Agents <span>3</span></a><a href="#t-5-mlops">MLOps &amp; Production <span>2</span></a><a href="#t-5-system_design">ML / AI System Design <span>2</span></a><a href="#t-5-stats_math">Stats &amp; Math <span>2</span></a><a href="#t-5-coding">Coding &amp; Implementation <span>2</span></a>  </nav>
 </header>
 
 <div class="progress" data-total="15" aria-live="polite">
@@ -71,237 +71,258 @@
   <p><strong class="progress-n">0</strong> of 15 you can answer</p>
 </div>
 
+<section class="deep" aria-labelledby="deep-5">
+  <p class="kicker">Deep dive</p>
+  <h2 id="deep-5">How do you make a long-running agentic workflow resilient so it can resume after a crash?</h2>
+  <details class="deep-answer"><summary>Try it first, then read a model answer</summary>
+<p>Making long-running agentic workflows resilient requires shifting from stateless request-response patterns to durable state management. The core principle is treating the agent&#39;s entire execution graph as a transactional state machine where every step is checkpointed.</p><p>First, I implement a durable execution framework like Temporal or AWS Step Functions. Each agentic turn, tool invocation, and thought cycle is recorded as an immutable event in an external log. If a node crashes or the API times out, the orchestrator replays the event history up to the last successful checkpoint instead of restarting from scratch.</p><p>Second, external side effects must be handled carefully. Tool calls such as sending emails or executing database writes must be idempotent. I assign unique transaction IDs to every action so that if a workflow retries after a failure, the external system ignores duplicate requests.</p><p>Finally, agent memory and context windows must be externalized. Rather than keeping working memory in ephemeral RAM, I persist conversation histories, intermediate reasoning steps, and scratchpads into a durable database or vector store alongside the workflow state. This ensures seamless resumption across infrastructure failures.</p>  </details>
+</section>
 
-<section class="topic" id="t-4-ml_fundamentals">
+<section class="topic" id="t-5-ml_fundamentals">
   <h2 class="topic-h">ML Fundamentals</h2>
   <ol class="qs">
-<li class="q" id="q-de3b2fa66ccb" data-qid="de3b2fa66ccb">
+<li class="q" id="q-047ad86f602c" data-qid="047ad86f602c">
   <span class="q-num" aria-hidden="true">01</span>
   <div class="q-body">
-    <p class="q-text">A whole-body controller trained entirely in simulation has to run on real hardware. What transfers, what does not, and how do you close the gap?</p>
-    <div class="q-meta">
-      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
-      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="de3b2fa66ccb"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-  </ol>
-</section>
-<section class="topic" id="t-4-deep_learning">
-  <h2 class="topic-h">Deep Learning</h2>
-  <ol class="qs">
-<li class="q" id="q-07b40f065136" data-qid="07b40f065136">
-  <span class="q-num" aria-hidden="true">02</span>
-  <div class="q-body">
-    <p class="q-text">How would you handle an imbalanced image classification dataset?</p>
-    <div class="q-meta">
-      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/ronak-k-2b1974214_deeplearning-aiengineer-dlinterview-activity-7526593143937523712-mc95" rel="noopener" target="_blank">via LinkedIn</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="07b40f065136"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-ed2f70303fee" data-qid="ed2f70303fee">
-  <span class="q-num" aria-hidden="true">03</span>
-  <div class="q-body">
-    <p class="q-text">What is model quantization (INT8, INT4, FP16, BF16), and how does it affect quality?</p>
+    <p class="q-text">Your resume screening AI rejects more female candidates for engineering roles. How do you fix gender bias?</p>
     <div class="q-meta">
       <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
       <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
     </div>
     <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="ed2f70303fee"> <span>I can answer this</span></label>
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Mention auditing training data for proxy variables, removing gender-identifying features, applying adversarial debiasing, and continuously monitoring disparate impact metrics across demographic groups.</p></details>
+      <label class="know"><input type="checkbox" data-know="047ad86f602c"> <span>I can answer this</span></label>
     </div>
   </div>
 </li>
-<li class="q" id="q-3112ffdab014" data-qid="3112ffdab014">
-  <span class="q-num" aria-hidden="true">04</span>
+  </ol>
+</section>
+<section class="topic" id="t-5-deep_learning">
+  <h2 class="topic-h">Deep Learning</h2>
+  <ol class="qs">
+<li class="q" id="q-f16f68fa6908" data-qid="f16f68fa6908">
+  <span class="q-num" aria-hidden="true">02</span>
   <div class="q-body">
-    <p class="q-text">How are GANs used in image synthesis or image-to-image translation tasks?</p>
+    <p class="q-text">What if we set all the weights of a neural network to 0?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/alexeygrigorev/data-science-interviews/blob/HEAD/theory.md" rel="noopener" target="_blank">via GitHub · data science interviews</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explain that all neurons output identical values, leading to symmetric gradients during backpropagation. This prevents the network from breaking symmetry and learning diverse feature representations.</p></details>
+      <label class="know"><input type="checkbox" data-know="f16f68fa6908"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-llms">
+  <h2 class="topic-h">LLMs &amp; Transformers</h2>
+  <ol class="qs">
+<li class="q" id="q-a94335e25c3f" data-qid="a94335e25c3f">
+  <span class="q-num" aria-hidden="true">03</span>
+  <div class="q-body">
+    <p class="q-text">Explain Prefix Tuning and Prompt Tuning. How are they different from LoRA?</p>
     <div class="q-meta">
       <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Discuss how prompt and prefix tuning prepend trainable vectors to the input or layers, while LoRA injects low-rank trainable matrices into transformer attention weights.</p></details>
+      <label class="know"><input type="checkbox" data-know="a94335e25c3f"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-0d8d58366dbf" data-qid="0d8d58366dbf">
+  <span class="q-num" aria-hidden="true">04</span>
+  <div class="q-body">
+    <p class="q-text">Your AI assistant processes long conversations and eventually loses important context. How would you design an effective memory management system?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Suggest implementing a hybrid memory architecture combining sliding-window short-term context, vector database retrieval for long-term facts, and periodic summarization.</p></details>
+      <label class="know"><input type="checkbox" data-know="0d8d58366dbf"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-rag_agents">
+  <h2 class="topic-h">RAG &amp; Agents</h2>
+  <ol class="qs">
+<li class="q" id="q-7098e1bb9212" data-qid="7098e1bb9212">
+  <span class="q-num" aria-hidden="true">05</span>
+  <div class="q-body">
+    <p class="q-text">What is an AI agent, and how does it differ from a simple LLM call?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Define agents by their ability to perceive environments, maintain state, use tools, and autonomously plan multi-step actions to achieve goals, unlike stateless LLM calls.</p></details>
+      <label class="know"><input type="checkbox" data-know="7098e1bb9212"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-43bfe3502f07" data-qid="43bfe3502f07">
+  <span class="q-num" aria-hidden="true">06</span>
+  <div class="q-body">
+    <p class="q-text">How do you make a long-running agentic workflow resilient so it can resume after a crash?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/mahmoodsalah_ai-engineer-interview-this-week-practice-activity-7527754872629366784-YugT" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Focus on state persistence via durable execution frameworks, event sourcing, idempotency keys for external API calls, and checkpointing agent memory after each step.</p></details>
+      <label class="know"><input type="checkbox" data-know="43bfe3502f07"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-3c0f345b5a7d" data-qid="3c0f345b5a7d">
+  <span class="q-num" aria-hidden="true">07</span>
+  <div class="q-body">
+    <p class="q-text">You&#39;re doing a security review of a coding agent that executes model-generated code. What&#39;s your threat model and controls?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/09-safety-security-and-responsible-ai/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Highlight threat vectors like remote code execution and data exfiltration. Recommend strict containerization, network sandboxing, least-privilege execution, and output validation.</p></details>
+      <label class="know"><input type="checkbox" data-know="3c0f345b5a7d"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-mlops">
+  <h2 class="topic-h">MLOps &amp; Production</h2>
+  <ol class="qs">
+<li class="q" id="q-d7f3b51a138c" data-qid="d7f3b51a138c">
+  <span class="q-num" aria-hidden="true">08</span>
+  <div class="q-body">
+    <p class="q-text">Your AI voice assistant takes 5-8 seconds to respond. How would you bring the response time below 1 second?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/swastika-p-66b437172_ai-aiinterview-aiengineer-activity-7527003213653311489-5KOg" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Propose streaming tokens, using smaller cascaded models for intent routing, speculative decoding, and concurrent asynchronous execution of tools.</p></details>
+      <label class="know"><input type="checkbox" data-know="d7f3b51a138c"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-43ca5134e3b5" data-qid="43ca5134e3b5">
+  <span class="q-num" aria-hidden="true">09</span>
+  <div class="q-body">
+    <p class="q-text">What are the common parallelism strategies used for LLM inference in production across multiple GPUs?</p>
+    <div class="q-meta">
+      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://x.com/DailyDoseOfDS_/status/2123083871986294929/video/1" rel="noopener" target="_blank">via X</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Cover tensor parallelism for splitting individual layers across GPUs, pipeline parallelism for sequential layers, and data parallelism for batch throughput.</p></details>
+      <label class="know"><input type="checkbox" data-know="43ca5134e3b5"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-system_design">
+  <h2 class="topic-h">ML / AI System Design</h2>
+  <ol class="qs">
+<li class="q" id="q-4f9427da489d" data-qid="4f9427da489d">
+  <span class="q-num" aria-hidden="true">10</span>
+  <div class="q-body">
+    <p class="q-text">When building an automated workflow, how do you decide whether to use an AI agent versus a simple deterministic Python function and an API call?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/naresh-edagotti-6a71a1233_practicai-activity-7526105231588323328-UWMu" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Advocate deterministic code for rigid, rule-based logic with zero error tolerance, reserving agents for tasks requiring dynamic reasoning, ambiguity resolution, and tool orchestration.</p></details>
+      <label class="know"><input type="checkbox" data-know="4f9427da489d"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-4c40fee12157" data-qid="4c40fee12157">
+  <span class="q-num" aria-hidden="true">11</span>
+  <div class="q-body">
+    <p class="q-text">Your PM wants to ship an AI feature with a 15% hallucination rate on edge cases. How do you communicate the risk?</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Translate the 15% error rate into business impact, user trust loss, and liability. Propose guardrails, human-in-the-loop validation, or scoping the feature to lower-risk domains.</p></details>
+      <label class="know"><input type="checkbox" data-know="4c40fee12157"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+  </ol>
+</section>
+<section class="topic" id="t-5-stats_math">
+  <h2 class="topic-h">Stats &amp; Math</h2>
+  <ol class="qs">
+<li class="q" id="q-73b6a909eae6" data-qid="73b6a909eae6">
+  <span class="q-num" aria-hidden="true">12</span>
+  <div class="q-body">
+    <p class="q-text">What is the Bernoulli distribution?</p>
+    <div class="q-meta">
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
       <a class="src" href="https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · machine learning interview questions</a>
     </div>
     <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="3112ffdab014"> <span>I can answer this</span></label>
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Describe it as a discrete probability distribution for a binary outcome trial, parameterized by the probability of success &#39;p&#39;.</p></details>
+      <label class="know"><input type="checkbox" data-know="73b6a909eae6"> <span>I can answer this</span></label>
     </div>
   </div>
 </li>
-  </ol>
-</section>
-<section class="topic" id="t-4-llms">
-  <h2 class="topic-h">LLMs &amp; Transformers</h2>
-  <ol class="qs">
-<li class="q" id="q-fd252c5dd823" data-qid="fd252c5dd823">
-  <span class="q-num" aria-hidden="true">05</span>
-  <div class="q-body">
-    <p class="q-text">What is LLM-as-judge, and when is it the right tool?</p>
-    <div class="q-meta">
-      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
-      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/07-evaluation-and-observability/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="fd252c5dd823"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-5781d52cdf7b" data-qid="5781d52cdf7b">
-  <span class="q-num" aria-hidden="true">06</span>
-  <div class="q-body">
-    <p class="q-text">What are the differences between bi-encoders and cross-encoders in information retrieval?</p>
-    <div class="q-meta">
-      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/ketan-sagare-15b4a9157_ey-interview-experience-senior-machine-learning-activity-7524412656112545792-jDAj" rel="noopener" target="_blank">via LinkedIn</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="5781d52cdf7b"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-a605d5725312" data-qid="a605d5725312">
-  <span class="q-num" aria-hidden="true">07</span>
-  <div class="q-body">
-    <p class="q-text">Explain the prefill and decode phases in LLM inference, and explain why prefill is compute-bound while decode is memory-bandwidth-bound.</p>
-    <div class="q-meta">
-      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://x.com/amitiitbhu/status/2121224196055593086" rel="noopener" target="_blank">via X</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="a605d5725312"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-  </ol>
-</section>
-<section class="topic" id="t-4-rag_agents">
-  <h2 class="topic-h">RAG &amp; Agents</h2>
-  <ol class="qs">
-<li class="q" id="q-7b2d7805eed0" data-qid="7b2d7805eed0">
-  <span class="q-num" aria-hidden="true">08</span>
-  <div class="q-body">
-    <p class="q-text">What is context pollution in agents, and how do you deal with it?</p>
-    <div class="q-meta">
-      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
-      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/06-agents-and-tool-use/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="7b2d7805eed0"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-da72e1c6d543" data-qid="da72e1c6d543">
-  <span class="q-num" aria-hidden="true">09</span>
-  <div class="q-body">
-    <p class="q-text">Your RAG application retrieves a related but incorrect document. How would you identify and fix the retrieval problem?</p>
-    <div class="q-meta">
-      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/bharath-reddy-35a405195_one-of-my-friends-got-rejected-after-the-activity-7526105199170629632-ixwz" rel="noopener" target="_blank">via LinkedIn</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="da72e1c6d543"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-cab2a92b1808" data-qid="cab2a92b1808">
-  <span class="q-num" aria-hidden="true">10</span>
-  <div class="q-body">
-    <p class="q-text">Your RAG system retrieves the correct documents, but still generates incorrect answers. What would you investigate?</p>
-    <div class="q-meta">
-      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/bharath-reddy-35a405195_he-prepared-500-ai-engineer-interview-questions-activity-7527192342798360576-0cHM" rel="noopener" target="_blank">via LinkedIn</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="cab2a92b1808"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-  </ol>
-</section>
-<section class="topic" id="t-4-mlops">
-  <h2 class="topic-h">MLOps &amp; Production</h2>
-  <ol class="qs">
-<li class="q" id="q-08e9923981fd" data-qid="08e9923981fd">
-  <span class="q-num" aria-hidden="true">11</span>
-  <div class="q-body">
-    <p class="q-text">What is LLMOps, and how does it differ from traditional MLOps?</p>
-    <div class="q-meta">
-      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
-      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="08e9923981fd"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-<li class="q" id="q-e3a165c2c8a4" data-qid="e3a165c2c8a4">
-  <span class="q-num" aria-hidden="true">12</span>
-  <div class="q-body">
-    <p class="q-text">Why do output tokens cost more than input tokens, and how should that shape how you build?</p>
-    <div class="q-meta">
-      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
-<span class="fresh">Asked this week</span>      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/08-inference-and-production/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="e3a165c2c8a4"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-  </ol>
-</section>
-<section class="topic" id="t-4-system_design">
-  <h2 class="topic-h">ML / AI System Design</h2>
-  <ol class="qs">
-<li class="q" id="q-5275c5287517" data-qid="5275c5287517">
+<li class="q" id="q-c67c6d01bc51" data-qid="c67c6d01bc51">
   <span class="q-num" aria-hidden="true">13</span>
   <div class="q-body">
-    <p class="q-text">What are the cost trade-offs between self-hosted and API-based AI inference?</p>
+    <p class="q-text">What is the difference between correlation and covariance?</p>
     <div class="q-meta">
-      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
-      <a class="src" href="https://github.com/amitshekhariitbhu/ai-engineering-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions</a>
+      <span class="diff diff-easy"><span class="dot" aria-hidden="true"></span>Easy</span>
+      <a class="src" href="https://github.com/amitshekhariitbhu/machine-learning-interview-questions/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · machine learning interview questions</a>
     </div>
     <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="5275c5287517"> <span>I can answer this</span></label>
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Explain that covariance measures the directional relationship between two variables and depends on their scale, whereas correlation normalizes covariance by the product of their standard deviations.</p></details>
+      <label class="know"><input type="checkbox" data-know="c67c6d01bc51"> <span>I can answer this</span></label>
     </div>
   </div>
 </li>
   </ol>
 </section>
-<section class="topic" id="t-4-stats_math">
-  <h2 class="topic-h">Stats &amp; Math</h2>
-  <ol class="qs">
-<li class="q" id="q-d49650d809bc" data-qid="d49650d809bc">
-  <span class="q-num" aria-hidden="true">14</span>
-  <div class="q-body">
-    <p class="q-text">Derive cross-entropy loss from first principles. Why is it &#34;the right&#34; loss for classification and language modeling?</p>
-    <div class="q-meta">
-      <span class="diff diff-hard"><span class="dot" aria-hidden="true"></span>Hard</span>
-      <a class="src" href="https://github.com/ombharatiya/AI-Engineer-Interview-Questions/blob/HEAD/01-ml-and-dl-foundations/questions.md" rel="noopener" target="_blank">via GitHub · AI Engineer Interview Questions</a>
-    </div>
-    <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="d49650d809bc"> <span>I can answer this</span></label>
-    </div>
-  </div>
-</li>
-  </ol>
-</section>
-<section class="topic" id="t-4-coding">
+<section class="topic" id="t-5-coding">
   <h2 class="topic-h">Coding &amp; Implementation</h2>
   <ol class="qs">
-<li class="q" id="q-e0b043da5170" data-qid="e0b043da5170">
-  <span class="q-num" aria-hidden="true">15</span>
+<li class="q" id="q-2d2158482320" data-qid="2d2158482320">
+  <span class="q-num" aria-hidden="true">14</span>
   <div class="q-body">
-    <p class="q-text">A user loads a 2 TB dataset with datasets on a 64 GB RAM machine and it works. How? And when does it stop working?</p>
+    <p class="q-text">Implement an LRU (Least Recently Used) Cache.</p>
     <div class="q-meta">
       <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
-      <a class="src" href="https://github.com/pallavi-shekhar/ai-engineering-interview-questions-company-wise/blob/HEAD/README.md" rel="noopener" target="_blank">via GitHub · ai engineering interview questions company wise</a>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.tryexponent.com/experiences/tiktok-ai-engineer-intern-interview-350013" rel="noopener" target="_blank">via tryexponent.com</a>
     </div>
     <div class="q-actions">
-      <label class="know"><input type="checkbox" data-know="e0b043da5170"> <span>I can answer this</span></label>
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Combine a hash map for O(1) lookups with a doubly linked list to track recency order and efficiently evict items upon capacity limits.</p></details>
+      <label class="know"><input type="checkbox" data-know="2d2158482320"> <span>I can answer this</span></label>
+    </div>
+  </div>
+</li>
+<li class="q" id="q-73da967dfe47" data-qid="73da967dfe47">
+  <span class="q-num" aria-hidden="true">15</span>
+  <div class="q-body">
+    <p class="q-text">Implement a function to find the longest substring without repeating characters.</p>
+    <div class="q-meta">
+      <span class="diff diff-medium"><span class="dot" aria-hidden="true"></span>Medium</span>
+<span class="fresh">Asked this week</span>      <a class="src" href="https://www.linkedin.com/posts/resnur-ai_resnur-ai-platform-for-learning-building-activity-7527322622368444416-sF_6" rel="noopener" target="_blank">via LinkedIn</a>
+    </div>
+    <div class="q-actions">
+      <details class="hint"><summary><span class="closed-label">Show hint</span><span class="open-label">Hide hint</span></summary><p><strong>A strong answer covers:</strong> Use a sliding window approach with a hash set or map to track character indices, expanding the right boundary and shrinking the left upon duplicates.</p></details>
+      <label class="know"><input type="checkbox" data-know="73da967dfe47"> <span>I can answer this</span></label>
     </div>
   </div>
 </li>
@@ -312,6 +333,16 @@
   <section class="recent">
     <h2 class="section-h">Earlier issues</h2>
     <ul class="rows"><li class="row">
+  <a href="issues/4.html">
+    <span class="row-num">#4</span>
+    <span class="row-main">
+      <span class="row-title">Deep Learning, LLMs &amp; Transformers and RAG &amp; Agents</span>
+      <span class="row-sub">Nov 23, 2026 · Coding &amp; Implementation, Deep Learning, LLMs &amp; Transformers, ML Fundamentals +4</span>
+    </span>
+    <span class="row-arrow" aria-hidden="true">→</span>
+  </a>
+</li>
+<li class="row">
   <a href="issues/3.html">
     <span class="row-num">#3</span>
     <span class="row-main">
